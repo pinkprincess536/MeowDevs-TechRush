@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="script.js"></script>
+     <script src="Frontend/user_home.html"></script>
+</head>
+
+<body>
+    <div class="login-form">
+        <div class="form-title">Member Login
+        </div>
+        <div class="input">
+            <label for="Name">Username</label>
+            <input type="text" id="username" name="username" required>
+
+             
+        <div class="input">
+            <label for="Mobile-Number">Mobile Number</label>
+            <input type="text" id="Mobile-Number" name="Mobile-Number" required>
+        </div>
+
+        <div class="input">
+            <label for="Email-Id">Email-Id</label>
+            <input type="text" id="Email-Id" name="Email-Id" required>
+        </div>
+
+
+             <label for="Captcha">Enter the sum:</label>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <span id="captcha-question" style="font-weight: bold;">3 + 5 = ?</span>
+  <input type="text" id="math-answer" placeholder="Answer" required />
+  <button type="button" id="captcha-refresh">&#x21bb;</button>
+</div>
+<small id="captcha-error" style="color: red; display: none;">Incorrect answer. Try again!</small>
+
+        </div>
+<button type="submit" id="submit-button">Submit</button>
+        <div class="form-footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>
