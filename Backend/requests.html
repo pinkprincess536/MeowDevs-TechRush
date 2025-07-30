@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NGO Requests</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-tertiary border-bottom shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand text-success fw-bold" href="#">
+        CharityFlow
+      </a>
+    </div>
+  </nav>
+  <h1>NGO Request Portal</h1>
+
+  <form id="request-form">
+    <input type="text" id="title" placeholder="Request Title" required />
+    <textarea id="description" placeholder="Request Description" required></textarea>
+    <button type="submit">Submit Request</button>
+  </form>
+
+  <h2>Your Requests</h2>
+  <ul id="request-list"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
