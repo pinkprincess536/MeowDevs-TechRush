@@ -12,7 +12,7 @@
     <header>
         <div id="header">
             <div id="webname">
-                Charity Flow <img height="40px" src="logo.JPG"></div>
+                Charity Flow <img height="40px" src="logo-removebg-preview.png"></div>
 
         </div>
     </header>
@@ -22,7 +22,8 @@
     <div class="form">
       
         <form>
-            <div id="req">Make a Donation</div><hr><br>
+            <div id="don">Make a Donation</div><hr><br><br>
+            <div class="pair">
             <p>Select the Category</p>
             
             <select class="buttons" required>
@@ -30,20 +31,40 @@
                 <option value="Books"> Books</option>
                 <option value="toys"> Toys</option>
                 <option value="clothes"> Clothes</option>
-              </select><br>
+              </select></div><br>
+              <div class="pair">
+
+                <p>Enter Condition of items</p>
+                <input type="text" class="buttons" placeholder="Condition of item" required>
+              </div><br>
+              <div class="pair">
+                <p>Quantity of items</p>
+                <input type="number" class="buttons">
+              </div><br>
+
+
+              <div class="pair">
               <p>Enter Description of item</p>
 
              <input type="text"  class="buttons" placeholder="Enter Description of item" required>
+             </div>
+
              <br>
+             <div class="pair">
              <p>Select Location</p>
              <select  class="buttons" required>
                 <option value="pune"> Pune</option>
                 <option value="mumbai"> Mumbai</option>
                 <option value="delhi"> Delhi</option>
+                
 
-            </select><br>
+            </select>
+            </div><br>
+
+            <div class="pair">
             <p>Upload the Image</p>
             <input type="file"  class="buttons" placeholder="Upload the file" accept="image/*" required><br>
+            </div>
             <button id="submit"  class="buttons" type="submit">Donate</button>
           
         </form>
