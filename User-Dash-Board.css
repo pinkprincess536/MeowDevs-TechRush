@@ -1,0 +1,99 @@
+/* Reset basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: hsla(332, 53%, 82%, 1);
+
+    background: linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+
+    background: -moz-linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+
+    background: -webkit-linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E9B7CE", endColorstr="#D3F3F1", GradientType=1 );
+}
+
+/* Header container */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:bisque;
+  padding: 20px 40px;
+  color: white;
+}
+
+/* Welcome message */
+.welcome h1 {
+  font-size: 28px;
+  color:#333
+}
+
+/* Logout button */
+.logout button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout button:hover {
+  background-color: #c0392b;
+}
+
+/* Main buttons container */
+.main-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px); /* Adjusts for header height */
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Individual button styling */
+.button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #2980b9;
+}
+
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  animation: typing 1s steps(2, end) forwards, blink 0.5s step-end 4; /* blink only 4 times */
+  border-right: 2px solid black;
+}
+
+/* Typing animation for ":)" */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 2ch; }  /* 2 characters for ":)" */
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: black; }
+}
