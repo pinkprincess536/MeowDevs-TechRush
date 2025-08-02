@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CharityFlow</title>
   <link rel="stylesheet" href="HomePage.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
  <header>
   <div class="head" >
 
     <div class="header-left">
-      <h1 >CharityFlow</h1>
+      <h1 class="charityflow">CharityFlow</h1>
     </div>
 
     
@@ -39,12 +42,71 @@
 </header>
 
   <main>
+  <div class="main">
 
-  <div class="button-container" >
-    <button class="main-buttons" onclick="location.href='DonationForm.html'" >Start Dononating</button>
-    <button class="main-buttons" onclick="location.href='About.html'">Learn More</button>
+  <div class="text-buttons-container">
+      <h1 class="main-heading">Smile of Hopes Which Give Satisfaction!</h1>
+      <p class="main-subtext">Help us spread happiness and content.</p>
+      <div class="button-container">
+        <button class="main-buttons" id="start-donating" onclick="location.href='DonationForm.html'">Start Donating</button>
+        <button class="main-buttons" id="learn-more" onclick="location.href='About.html'">Learn More</button>
+      </div>
+    </div>
 
+  <div class="image">
+    <img src="https://www.angelcharity.org/wp-content/uploads/hero-background.jpg">
   </div>
+  </div>
+
+
+
+
+ 
+<div class="middle">
+
+<h1 class="section-heading">How do we work?</h1>
+  <div class="info">
+    
+    <div class="box1">
+    <h2 class="step-title">Step 1:</h2>
+
+    <div class="stepcontent">
+      <img src="donation.png" alt="Step Icon" width="40" />
+    <p>You make a donation.</p>
+    
+    </div>
+  
+    </div>
+
+    <div class="box2">
+      <h2 class="step-title">Step 2:</h2>
+
+    <div class="stepcontent">
+      <img src="verification.png" alt="Step Icon" width="40" />
+    <p>Admin verfies it.</p>
+    
+    </div>
+
+    </div>
+
+    <div class="box3">
+      <h2 class="step-title">Step 3:</h2>
+
+      <div class="stepcontent">
+      <img src="blessing.png" alt="Step Icon" width="40" />
+      <p>You drop the donation at specified location and return with blessings!</p>
+    
+    </div>
+
+
+    </div>
+  </div>
+  </div>
+ 
+
+
+
+
   
 </main>
 
@@ -55,6 +117,9 @@
   <p id="copyright-text">&copy; 2025 CharityFlow. All rights reserved.</p>
   </div>
 </footer>
+
+
+
 
 </body>
 </html>
