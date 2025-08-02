@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Request Item</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #FAF3ED;
+    }
+
+    .navbar {
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px 20px;
+    }
+
+    .navbar-brand {
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: #5D7CB5;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto 0 auto;
+      padding: 20px;
+    }
+
+    form {
+      background-color: #FFFFFF;
+      padding: 25px;
+      border-radius: 12px;
+      border: 2px solid #C63A3B;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+      color: #5D7CB5;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    select,
+    textarea,
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+
+    select:focus,
+    textarea:focus,
+    input[type="number"]:focus {
+      border-color: #5D7CB5;
+      outline: none;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #5D7CB5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #3E5D91; 
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      .form-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="navbar-brand" href="#">CharityFlow</a>
+  </nav>
+
+  <div class="container">
+    <form id="request-form">
+      <div class="form-title">
+        <h3>Submit Request</h3>
+      </div>
+
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="">Choose...</option>
+        <option value="books">Books</option>
+        <option value="clothes">Clothes</option>
+        <option value="uniform">Uniform</option>
+        <option value="stationary">Stationary</option>
+        <option value="footwear">Footwear</option>
+        <option value="winter">Winter Jackets and Blankets</option>
+      </select>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" min="1" placeholder="Enter quantity" required />
+
+      <label for="description">Additional Description</label>
+      <textarea id="description" rows="4" placeholder="Enter detailed description" required></textarea>
+
+      <button type="submit" class="btn">Submit Request</button>
+    </form>
+    <div id="success-message" style="display:none; margin-top: 20px; text-align: center; font-size: 18px; color: #2E7D32; background-color: #E8F5E9; padding: 15px; border-radius: 10px; border: 1px solid #C8E6C9;">
+        🎉 Congratulations, your request has been submitted!
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  const form = document.getElementById('request-form');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const ngo_id = 'anonymous';  
+
+    const category = document.getElementById('category').value;
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const description = document.getElementById('description').value;
+    const status = 'pending';
+    const received= false;
+
+    const { data, error } = await supabase
+      .from('ngo-requests')
+      .insert([{
+        category,
+        quantity,
+        description,
+        status,
+        ngo_id,
+        received
+      }]);
+
+    if (error) {
+      alert('Error: ' + error.message);
+    } else {
+      form.reset();
+      const messageDiv = document.getElementById('success-message');
+      messageDiv.style.display = 'block';
+      setTimeout(() => {
+        window.location.href = 'ngo_dashboard_final.html';
+      }, 2000);
+    }
+  });
+</script>
+
+
+</body>
+</html>
