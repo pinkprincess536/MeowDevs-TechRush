@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NGO Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #FAF3ED;
+    }
+
+    .navbar {
+      background-color: #FFFFFF;
+      padding: 25px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      font-size: 28px;
+      font-weight: bold;
+      color: #5D7CB5;
+      text-decoration: none;
+    }
+
+    .submit-top {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      padding: 12px 55px;
+      font-size: 16px;
+      background-color: #4b6fb2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #3E5D91;
+    }
+
+    .dashboard {
+      display: flex;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .left-panel {
+      flex: 1;
+    }
+
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid #5D7CB5;
+      height: 75vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .center {
+      font-weight: bold;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .section h3 {
+      color: #5D7CB5;
+      margin-top: 0;
+    }
+
+    #active-requests, #previous-requests {
+      overflow-y: auto;
+      max-height: 100%;
+      padding-right: 5px;
+    }
+
+    .btn {
+      margin-top: 0;
+      margin-bottom: 20px;
+      padding: 6px 20px;
+      background-color: #C63A3B;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background-color: #3E5D91;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 2px solid #3E5D91;
+      padding: 10px;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #3E5D91;
+      color: white;
+    }
+    .cards-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px auto 0;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 220px;
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #3E5D91;
+}
+
+.card-count {
+  font-size: 22px;
+  font-weight: bold;
+  color: #5D7CB5;
+}
+
+
+    @media (max-width: 900px) {
+      .dashboard {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="navbar-brand header">CharityFlow : NGO Dashboard</a>
+    <button onclick="logout()" style="position:absolute; top:20px; right:20px;" class="btn">Logout</button>
+
+  </nav>
+  <div class="cards-row" id="category-cards"></div>
+  <div class="submit-top">
+    <button class="submit-btn" onclick="handleSubmitClick()">Submit Request</button>
+  </div>
+
+  <div class="dashboard">
+    <div class="left-panel">
+      <div class="section">
+        <h3 class="header center">Previous Requests</h3>
+        <div id="previous-requests"></div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="section">
+        <h3 class="header center">Active Requests</h3>
+        <div id="active-requests"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const ngoEmail = localStorage.getItem('ngo_email');
+    if (!ngoEmail) {
+      window.location.href = 'ngo_login.html'; 
+    }
+    const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const ngo_id = 'anonymous';
+    const activeDiv = document.getElementById('active-requests');
+    const previousDiv = document.getElementById('previous-requests');
+
+    async function loadRequests() {
+      const { data, error } = await supabase
+        .from('ngo-requests')
+        .select('*')
+        .eq('ngo_id', ngo_id)
+        .order('id', { ascending: false });
+
+      if (error) {
+        console.error("Load error:", error);
+        activeDiv.innerHTML = '<p>Error loading requests</p>';
+        return;
+      }
+
+      const activeTable = document.createElement('table');
+      activeTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Qty</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
+
+      const previousTable = document.createElement('table');
+      previousTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Qty</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
+
+      data.forEach(req => {
+        if ((req.status === 'pending' || req.status === 'approved') && !req.received) {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${req.category}</td>
+            <td>${req.quantity}</td>
+            <td>${req.description}</td>
+            <td>${req.status}</td>
+            <td></td>
+          `;
+
+          if (req.status === 'approved') {
+            const btn = document.createElement('button');
+            btn.className = 'btn';
+            btn.innerText = 'Mark as Received';
+            btn.onclick = async () => {
+              const { error } = await supabase
+                .from('ngo-requests')
+                .update({ received: true })
+                .eq('id', req.id);
+
+              if (error) {
+                console.error("Update error:", error);
+                alert("Failed to update: " + error.message);
+              } else {
+                loadRequests();
+              }
+            };
+            row.children[4].appendChild(btn);
+          }
+
+          activeTable.querySelector('tbody').appendChild(row);
+        } else if (req.received) {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${req.category}</td>
+            <td>${req.quantity}</td>
+            <td>${req.description}</td>
+            <td>${req.status}</td>
+          `;
+          previousTable.querySelector('tbody').appendChild(row);
+        }
+      });
+
+      if (activeTable.querySelector('tbody').children.length === 0) {
+        activeDiv.innerHTML = '<p>No active requests</p>';
+      } else {
+        activeDiv.appendChild(activeTable);
+      }
+
+      if (previousTable.querySelector('tbody').children.length === 0) {
+        previousDiv.innerHTML = '<p>No previous requests</p>';
+      } else {
+        previousDiv.appendChild(previousTable);
+      }
+    }
+    async function loadCategoryCards() {
+  const cardContainer = document.getElementById('category-cards');
+  cardContainer.innerHTML = ''; 
+
+  const { data, error } = await supabase
+    .from('category_counts')
+    .select('*');
+
+  if (error) {
+    console.error("Error loading categories:", error);
+    cardContainer.innerHTML = '<p>Error loading categories</p>';
+    return;
+  }
+
+  const categoryImages = {
+    footwear: 'https://cdn-icons-png.flaticon.com/512/5499/5499242.png',
+    clothes: 'https://images.vexels.com/media/users/3/239109/isolated/preview/e24a2aa89eee529d82a568c83a15c1d2-clothes-in-hangers-cut-out.png',
+    stationary: 'https://img.freepik.com/premium-vector/stationery-icon-vector-design-template-white-background_731715-2355.jpg',
+    books: 'https://cdn-icons-png.flaticon.com/512/29/29302.png',
+    uniform: 'https://cdn1.iconfinder.com/data/icons/education-2-69/95/01_uniform-512.png',
+    winter: 'https://www.shutterstock.com/image-vector/blanket-line-vector-illustrationisolated-on-600nw-1840679008.jpg'
+  };
+
+  data.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const imgSrc = categoryImages[cat.category.toLowerCase()] || 'https://cdn-icons-png.flaticon.com/512/565/565547.png';
+
+    card.innerHTML = `
+      <img src="${imgSrc}" alt="${cat.category}">
+      <div class="card-title">${cat.category}</div>
+      <div class="card-count">${cat.count}</div>
+    `;
+
+    cardContainer.appendChild(card);
+  });
+}
+
+
+    function handleSubmitClick() {
+      window.location.href = 'request.html';
+    }
+    function logout() {
+      localStorage.removeItem('ngo_email');
+      window.location.href = 'ngo_login.html';
+    }
+
+
+    loadRequests();
+    loadCategoryCards();
+  </script>
+</body>
+</html>
+
