@@ -5,7 +5,7 @@ body {
   background-color: #f9fafb;
 }
 
-/* Card Grid Container */
+
 .cardgrid {
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Individual Card */
 .card {
   flex: 1;
   background-color: white;
@@ -29,13 +28,13 @@ body {
   min-height: 88px;
 }
 
-/* Label styling */
+
 .label {
   color: #6b7280;
   font-size: 1rem;
 }
 
-/* Heading */
+
 .three h1 {
   font-size: 28px;
   font-weight: 600;
@@ -43,7 +42,7 @@ body {
   margin-bottom: 15px;
 }
 
-/* Tabs Container */
+
 .tabsbox {
   display: flex;
   justify-content: space-between;
@@ -60,7 +59,6 @@ body {
 
 
 
-/* Form Page Container */
 .form-content {
   display: flex;
   flex-direction: column;
@@ -75,7 +73,6 @@ body {
   min-height: 80vh;
 }
 
-/* Form Header Text */
 .header {
   display: flex;
   flex-direction: column;
@@ -83,7 +80,6 @@ body {
   
 }
 
-/* The white box containing the form */
 .form-container {
   overflow-y: auto;
   display: flex;
@@ -98,20 +94,18 @@ body {
   box-shadow: 0 4px 12px #C63A3B(0, 0, 0, 0.1);
 }
 
-/* Each field block */
+
 .ngocard, .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-/* Label */
 label {
   font-weight: 600;
   margin-bottom: 5px;
 }
 
-/* Input styling */
 input,
 textarea,
 select {
@@ -123,7 +117,6 @@ select {
   box-sizing: border-box;
 }
 
-/* Submit Button */
 .registerNGO {
   border-color: #C63A3B;
   color: #C63A3B;
@@ -176,4 +169,5 @@ select {
 ::-webkit-scrollbar-thumb{
   background: #C63A3B;
   border-radius: 10px;
+
 }
