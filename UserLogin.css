@@ -1,4 +1,3 @@
-/* Reset and base */
 * {
     margin: 0;
     padding: 0;
@@ -13,8 +12,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-/* Header styling */
 header {
     background-color: #ffffff;
     padding: 20px;
@@ -44,7 +41,6 @@ header {
     border-radius: 3px;
 }
 
-/* Main login form styling */
 main {
     flex: 1;
     display: flex;
