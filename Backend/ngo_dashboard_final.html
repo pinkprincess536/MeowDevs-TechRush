@@ -9,25 +9,79 @@
       box-sizing: border-box;
     }
 
-    body {
+    /* body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #FAF3ED;
+    } */
+     body {
+      margin: 0;
+      padding: 0;
+      background-image: url('children_1.avif'); 
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+      background-attachment: fixed; 
+      font-family: Arial, sans-serif;
     }
 
-    .navbar {
-      background-color: #FFFFFF;
-      padding: 25px 20px;
+    /* .navbar {
+      background-color: #FFC300;
+      padding: 10px 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .navbar-brand {
-      font-size: 28px;
+    /* .navbar-brand {
+      font-size: 100px;
       font-weight: bold;
-      color: #5D7CB5;
+      color: #C63A3B;
       text-decoration: none;
-    }
+    } */
+    /* .navbar-brand {
+      font-size: 100px; 
+    } */
+    .navbar { 
+  background-color: #FFC300;
+  padding: 2px 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px; /* Fixed height */
+}
 
+.navbar-brand img {
+  height: 100px;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+.logo{
+  text-align:left;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.logo-img {
+  height: 100px;
+}
+
+.tagline {
+  font-size: 20px; 
+  color: #C63A3B;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+    .page-header {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: #333;
+  }
     .submit-top {
       text-align: center;
       margin-top: 20px;
@@ -36,16 +90,18 @@
     .submit-btn {
       margin-top: 20px;
       padding: 12px 55px;
-      font-size: 16px;
-      background-color: #4b6fb2;
-      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #FFC300;
+      color: black;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
 
     .submit-btn:hover {
-      background-color: #3E5D91;
+      background-color: white;
+      color: black;
     }
 
     .dashboard {
@@ -90,7 +146,7 @@
     }
 
     .section h3 {
-      color: #5D7CB5;
+      color: #345798;
       margin-top: 0;
     }
 
@@ -101,7 +157,7 @@
     }
 
     .btn {
-      margin-top: 0;
+      margin-top: 16px;
       margin-bottom: 20px;
       padding: 6px 20px;
       background-color: #C63A3B;
@@ -130,8 +186,8 @@
     }
 
     th {
-      background-color: #3E5D91;
-      color: white;
+      background-color: #FFC300;
+      color: black;
     }
     .cards-row {
   display: flex;
@@ -146,15 +202,16 @@
   background-color: #FFFFFF;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 220px;
-  padding: 20px;
+  width: 180px;
+  padding: 10px;
   text-align: center;
   flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -172,6 +229,10 @@
   color: #5D7CB5;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
 
     @media (max-width: 900px) {
       .dashboard {
@@ -183,10 +244,17 @@
 <body>
 
   <nav class="navbar">
-    <a href="#" class="navbar-brand header">CharityFlow : NGO Dashboard</a>
-    <button onclick="logout()" style="position:absolute; top:20px; right:20px;" class="btn">Logout</button>
+  <div class="logo-container">
+  <img src="joy_final1.png" alt="JOY Logo" class="logo-img" />
+  <span class="tagline">Sharing Happiness</span>
+</div>
+  <div style="display: flex; align-items: center; gap: 20px; margin-right: 20px;">
+    <span id="welcome-msg" style="font-weight: bold; color: #3E5D91; font-size: 16px;"></span>
+    <button onclick="logout()" class="btn">Logout</button>
+  </div>
+</nav>
+  <h2 class="page-header"> Items for Donation</h2>
 
-  </nav>
   <div class="cards-row" id="category-cards"></div>
   <div class="submit-top">
     <button class="submit-btn" onclick="handleSubmitClick()">Submit Request</button>
@@ -209,6 +277,23 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
+     async function loadNGOName() {
+      const { data, error } = await supabase
+        .from('RegisterNGO')
+        .select('ngo_name')
+        .eq('email', ngoEmail)
+        .single();
+
+      if (error) {
+        console.error("Error fetching NGO name:", error);
+        return;
+      }
+
+      const welcomeEl = document.getElementById('welcome-msg');
+      if (welcomeEl && data) {
+        welcomeEl.textContent = `Welcome, ${data.ngo_name}`;
+      }
+    }
     const ngoEmail = localStorage.getItem('ngo_email');
     if (!ngoEmail) {
       window.location.href = 'ngo_login.html'; 
@@ -217,7 +302,7 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    const ngo_id = 'anonymous';
+    const ngo_id = ngoEmail;
     const activeDiv = document.getElementById('active-requests');
     const previousDiv = document.getElementById('previous-requests');
 
@@ -233,6 +318,9 @@
         activeDiv.innerHTML = '<p>Error loading requests</p>';
         return;
       }
+
+      activeDiv.innerHTML = '';
+      previousDiv.innerHTML = '';
 
       const activeTable = document.createElement('table');
       activeTable.innerHTML = `
@@ -262,10 +350,11 @@
       `;
 
       data.forEach(req => {
+        const category = req.category.charAt(0).toUpperCase() + req.category.slice(1);
         if ((req.status === 'pending' || req.status === 'approved') && !req.received) {
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${req.category}</td>
+            <td>${category}</td>
             <td>${req.quantity}</td>
             <td>${req.description}</td>
             <td>${req.status}</td>
@@ -279,7 +368,7 @@
             btn.onclick = async () => {
               const { error } = await supabase
                 .from('ngo-requests')
-                .update({ received: true })
+                .update({ received: true, status:'received'})
                 .eq('id', req.id);
 
               if (error) {
@@ -296,7 +385,7 @@
         } else if (req.received) {
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${req.category}</td>
+            <td>${category}</td>
             <td>${req.quantity}</td>
             <td>${req.description}</td>
             <td>${req.status}</td>
@@ -317,7 +406,7 @@
         previousDiv.appendChild(previousTable);
       }
     }
-    async function loadCategoryCards() {
+  async function loadCategoryCards() {
   const cardContainer = document.getElementById('category-cards');
   cardContainer.innerHTML = ''; 
 
@@ -364,10 +453,9 @@
       localStorage.removeItem('ngo_email');
       window.location.href = 'ngo_login.html';
     }
-
-
     loadRequests();
     loadCategoryCards();
+    loadNGOName(); 
   </script>
 </body>
 </html>
