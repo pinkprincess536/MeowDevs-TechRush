@@ -1,4 +1,3 @@
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -19,7 +18,6 @@ body {
     to { opacity: 1; }
 }
 
-/* Header Styles */
 .dashboard-header {
     background: linear-gradient(90deg, hsla(197, 100%, 63%, 1) 0%, hsla(294, 100%, 55%, 1) 100%);
     padding: 20px 40px;
@@ -92,14 +90,12 @@ body {
     font-size: 0.9rem;
 }
 
-/* Main Content Styles */
 .dashboard-main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* Quick Actions */
 .quick-actions {
     margin-bottom: 50px;
 }
@@ -193,7 +189,6 @@ body {
     100% { transform: scaleX(1); }
 }
 
-/* News Section */
 .dashboard-news {
     margin-bottom: 50px;
 }
@@ -300,7 +295,6 @@ body {
     gap: 8px;
 }
 
-/* Stats Section */
 .stats-section {
     margin-top: 50px;
 }
@@ -353,7 +347,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
