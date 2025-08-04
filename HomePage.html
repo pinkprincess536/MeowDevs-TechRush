@@ -5,46 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CharityFlow</title>
   <link rel="stylesheet" href="HomePage.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
  <header>
-  <div class="head" >
-
+  <div class="head">
     <div class="header-left">
-      <h1 class="charityflow">CharityFlow</h1>
+      <h1 class="charityflow">𝒥𝑜𝓎</h1>
     </div>
-
     
-    <div class="header-right" >
-
-      <!-- <button class="top-button" onclick="location.href='About.html'" >
-        About
-      </button> -->
+    <div class="header-right">
       <div class="login-container">
-
-      <button class="top-button" onclick="location.href=''" >
-        login
-      </button>
-
-      <div class="dropdown">
-        <a href="#">User Login</a>
-        <a href="#">Admin Login</a>
+        <button class="top-button" onclick="location.href=''">login</button>
+        <div class="dropdown">
+          <a href="UserLogin.html">User Login </a>
+          <a href="#">NGO Login</a>
+        </div>
       </div>
-
-      </div>
-
     </div>
-
   </div>
 </header>
 
-  <main>
+<main>
   <div class="main">
-
-  <div class="text-buttons-container">
+    <div class="text-buttons-container">
       <h1 class="main-heading">Smile of Hopes Which Give Satisfaction!</h1>
       <p class="main-subtext">Help us spread happiness and content.</p>
       <div class="button-container">
@@ -52,71 +39,225 @@
         <button class="main-buttons" id="learn-more" onclick="location.href='About.html'">Learn More</button>
       </div>
     </div>
-
-  <div class="image">
-    <img src="https://www.angelcharity.org/wp-content/uploads/hero-background.jpg">
-  </div>
-  </div>
-
-
-
-
- 
-<div class="middle">
-
-<h1 class="section-heading">How do we work?</h1>
-  <div class="info">
-    
-    <div class="box1">
-    <h2 class="step-title">Step 1:</h2>
-
-    <div class="stepcontent">
-      <img src="donation.png" alt="Step Icon" width="40" />
-    <p>You make a donation.</p>
-    
-    </div>
-  
-    </div>
-
-    <div class="box2">
-      <h2 class="step-title">Step 2:</h2>
-
-    <div class="stepcontent">
-      <img src="verification.png" alt="Step Icon" width="40" />
-    <p>Admin verfies it.</p>
-    
-    </div>
-
-    </div>
-
-    <div class="box3">
-      <h2 class="step-title">Step 3:</h2>
-
-      <div class="stepcontent">
-      <img src="blessing.png" alt="Step Icon" width="40" />
-      <p>You drop the donation at specified location and return with blessings!</p>
-    
-    </div>
-
-
+    <div class="image">
+      <img src="https://www.angelcharity.org/wp-content/uploads/hero-background.jpg">
     </div>
   </div>
+
+
+
+  <section class="donation-message">
+  <div class="message-content">
+    <h2>Your Contribution Matters</h2>
+    <p>Every act of generosity creates ripples of change. Together, we're building a brighter future for those in need.</p>
   </div>
- 
+</section>
 
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+  <div class="middle">
+    <h1 class="section-heading">How do we work?</h1>
+    <div class="info">
+      <div class="work-steps">
+        <div class="step-container">
+          <div class="step-box box1" data-step="1">
+            <div class="step-icon">
+              <!-- <img src="donation.png" alt="Donation Icon" class="step-img"> -->
+               <p>💲</p>
+            </div>
+            <h2 class="step-title">Make a Donation</h2>
+            <div class="step-content">
+              <p>Select items you want to donate and fill out our simple form.</p>
+              <div class="step-details hidden">
+                <p>We accept clothes, books, and other essentials.</p>
+              </div>
+              <button class="step-toggle"></button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-connector"></div>
+        
+        <div class="step-container">
+          <div class="step-box box2" data-step="2">
+            <div class="step-icon">
+              <p>🛠️</p>
+            </div>
+            <h2 class="step-title">Admin Verification</h2>
+            <div class="step-content">
+              <p>Our team reviews and approves your donation request.</p>
+              <div class="step-details hidden">
+                <p>Verification typically takes 24-48 hours.</p>
+              </div>
+              <button class="step-toggle"></button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-connector"></div>
+        
+        <div class="step-container">
+          <div class="step-box box3" data-step="3">
+            <div class="step-icon">
+              <p>📦</p>
+            </div>
+            <h2 class="step-title">Drop & Receive</h2>
+            <div class="step-content">
+              <p>Deliver items to our center and receive gratitude from recipients.</p>
+              <div class="step-details hidden">
+                <p>We'll provide you with a convenient drop-off location.</p>
+              </div>
+              <button class="step-toggle"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
+
+<div class="counter-section">
+  <h2 class="counter-heading">Our Impact So Far</h2>
+  <div class="counters-container">
+    <div class="counter-box">
+      <div class="counter" data-target="12500">0</div>
+      <p class="counter-label">Donations Made</p>
+    </div>
+    <div class="counter-box">
+      <div class="counter" data-target="850">0</div>
+      <p class="counter-label">Happy Families</p>
+    </div>
+    <div class="counter-box">
+      <div class="counter" data-target="35">0</div>
+      <p class="counter-label">Cities Reached</p>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // Toggle step details
+  document.querySelectorAll('.step-toggle').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const stepBox = this.closest('.step-box');
+      const details = stepBox.querySelector('.step-details');
+      details.classList.toggle('visible');
+      this.classList.toggle('active');
+    });
+  });
+
+  // Animate steps on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const steps = document.querySelectorAll('.step-box');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    steps.forEach((step, index) => {
+      step.style.opacity = '0';
+      step.style.transform = 'translateY(20px)';
+      step.style.transition = `all 0.5s ease ${index * 0.2}s`;
+      observer.observe(step);
+    });
+  });
+
+  // Counter animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / speed;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+      
+      observer.observe(counter);
+    });
+  });
+</script>
+
+
+
 
 
 <footer>
-  <div class="footer">
-  <p id="footer-para">For Help <a href="www.example.com">Conatct us</a></p>
-  <p id="copyright-text">&copy; 2025 CharityFlow. All rights reserved.</p>
+  <div class="footer-container">
+    <div class="footer-column social-media">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+          <span>Facebook</span>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+          <span>Twitter</span>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-column contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-details">
+        <p><i class="fas fa-map-marker-alt"></i>CharityFlow City</p>
+        <p><i class="fas fa-phone"></i> 12345453</p>
+        <p><i class="fas fa-envelope"></i> info@charityflow.org</p>
+        <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p id="copyright-text">&copy; 2025 Joy. All rights reserved.</p>
   </div>
 </footer>
+
+
+
 
 
 

@@ -3,79 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Charity Flow - Donation Form</title>
     <link rel="stylesheet" href="DonationForm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-
-    <header>
-        <div id="header">
-            <div id="webname">
-                Charity Flow <img height="40px" src="logo-removebg-preview.png"></div>
-
-        </div>
-    </header>
-
-
-    <main>
-    <div class="form">
-      
-        <form>
-            <div id="don">Make a Donation</div><hr><br><br>
-            <div class="pair">
-            <p>Select the Category</p>
+    <header class="main-header">
+    <div class="header-container">
+        <div class="logo-container">
             
-            <select class="buttons" required>
-                
-                <option value="Books"> Books</option>
-                <option value="toys"> Toys</option>
-                <option value="clothes"> Clothes</option>
-              </select></div><br>
-              <div class="pair">
-
-                <p>Enter Condition of items</p>
-                <input type="text" class="buttons" placeholder="Condition of item" required>
-              </div><br>
-              <div class="pair">
-                <p>Quantity of items</p>
-                <input type="number" class="buttons">
-              </div><br>
-
-
-              <div class="pair">
-              <p>Enter Description of item</p>
-
-             <input type="text"  class="buttons" placeholder="Enter Description of item" required>
-             </div>
-
-             <br>
-             <div class="pair">
-             <p>Select Location</p>
-             <select  class="buttons" required>
-                <option value="pune"> Pune</option>
-                <option value="mumbai"> Mumbai</option>
-                <option value="delhi"> Delhi</option>
-                
-
-            </select>
-            </div><br>
-
-            <div class="pair">
-            <p>Upload the Image</p>
-            <input type="file"  class="buttons" placeholder="Upload the file" accept="image/*" required><br>
+            <h1 class="logo-text">Joy</h1>
+        </div>
+        <nav class="header-nav">
+            <a href="HomePage.html" class="nav-link">Home</a>
+            <a href="About.html" class="nav-link">About</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">Donate <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="DonationForm.html" class="dropdown-link">Make Donation</a>
+                    <a href="#" class="dropdown-link">Track Donation</a>
+                </div>
             </div>
-            <button id="submit"  class="buttons" type="submit">Donate</button>
-          
-        </form>
-          
-      </div>
-</main>
+            <a href="UserLogin.html" class="nav-link login-btn">Login</a>
+        </nav>
+    </div>
+</header>
 
-
-
-        
-
-   
+    <main class="main-content">
+        <div class="donation-container">
+            <form class="donation-form">
+                <h2 class="form-title">Make a Donation</h2>
+                
+                <div class="form-group">
+                    <label for="category">Select the Category</label>
+                    <select id="category" class="form-input" required>
+                        <option value="" disabled selected>Choose donation category</option>
+                        <option value="Books">Books</option>
+                        <option value="Toys">Toys</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Furniture">Furniture</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="condition">Condition of Items</label>
+                    <input type="text" id="condition" class="form-input" placeholder="E.g. Like new, gently used" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity of Items</label>
+                    <input type="number" id="quantity" class="form-input" placeholder="Number of items" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description of Items</label>
+                    <textarea id="description" class="form-input" rows="3" placeholder="Detailed description of your donation" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Select Location</label>
+                    <select id="location" class="form-input" required>
+                        <option value="" disabled selected>Choose your city</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="image">Upload Images</label>
+                    <div class="file-upload">
+                        <input type="file" id="image" accept="image/*" multiple required>
+                        <label for="image" class="file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose files or drag here</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Donate Now</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

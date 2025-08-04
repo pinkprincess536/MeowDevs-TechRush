@@ -1,101 +1,228 @@
-*{
-    margin:0px;
-}
-body{
-    margin:0px;
-    background-color: #e5fcf5;
-    
-}
-main{
-    display:flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content:center;
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
 }
 
-#header{
- height: 80px;
- background-color: #000080;
- color:white;
- display:flex;
-
+body {
+    background: linear-gradient(135deg, #e0f7fa 0%, #e1bee7 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
 }
 
-
-#webname{
-    font-size: 35px;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-
-#don{
-    font-size: 40px;
-    font-weight: 700px;
-    font-family: Arial, Helvetica, sans-serif;
-    display:flex;
-    justify-content: center;
-}
-
-
-.form{
-    margin-top:20px;
-    height: 670px;
-    width: 500px;
-    display:flex;
-    flex-direction: column;
-
-   
- 
-    border-radius: 10px;
-    margin-bottom: 0px;
-    
-    justify-content:  space-around;
-    
-    align-content: center;
-    
-     flex-wrap: wrap;
-     padding: none;
-
-    background-color: white;
-    
-}
-
-
-
-
-   
-
-.buttons{
-    
-     border-radius: 10px;
-     height:40px;
+/* Header Styles */
+#header {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
     width: 100%;
-    border-width: 0.5px;
-    text-align: center;
-    
-}
-.buttons:hover{
-      transition-property: all;
-    transition-duration: 50ms;
-    transform: scale(1.007);
-
+    z-index: 100;
 }
 
+#branding {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
 
+.main-header {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-#submit{
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Main Content Styles */
+.main-content {
+    display: flex;
     justify-content: center;
-    background-color:white;
-    border-radius: 5px;
-    height: 70px;
-    
+    align-items: center;
+    min-height: 100vh;
+    padding: 100px 20px 50px;
 }
-#submit:hover{
-     transition-property: all;
-    transition-duration: 50ms;
-    transform: scale(1.01);
-    border-color: white;
 
+.donation-container {
+    width: 100%;
+    max-width: 600px;
 }
-#submit:active{
-    background-color:rgb(118, 116, 116);
+
+.donation-form {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.donation-form:hover {
+    transform: translateY(-5px);
+}
+
+.form-title {
+    text-align: center;
+    color: #4a148c;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.form-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #7b1fa2, #4a148c);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a148c;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #7b1fa2;
+    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.2);
+}
+
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234a148c' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* File Upload Styles */
+.file-upload {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border: 2px dashed #ce93d8;
+    border-radius: 8px;
+    background-color: #f9f0ff;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-label i {
+    font-size: 2rem;
+    color: #7b1fa2;
+    margin-bottom: 10px;
+}
+
+.file-label span {
+    color: #4a148c;
+    font-weight: 500;
+}
+
+.file-upload:hover .file-label {
+    border-color: #7b1fa2;
+    background-color: #f3e5f5;
+}
+
+/* Button Styles */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(to right, #7b1fa2, #4a148c);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(to right, #6a1b9a, #3e0f7a);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .donation-form {
+        padding: 30px;
+    }
+    
+    .form-title {
+        font-size: 1.8rem;
+    }
 }
