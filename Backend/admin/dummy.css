@@ -1,0 +1,26 @@
+.two-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 20px;
+}
+
+.column {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+#details{
+  display:none;
+  
+}
+
+
+.buttons:active #details{
+  display: inline;
+}

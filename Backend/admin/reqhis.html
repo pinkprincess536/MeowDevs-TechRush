@@ -1,0 +1,57 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Request History</title>
+
+  <!-- your CSS -->
+  <link rel="stylesheet" href="outsreq.css">
+
+  <!-- Supabase client library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  
+  <!-- your JS, deferred so it runs after DOM + Supabase loaded -->
+  <script src="reqhis.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h2>Requests History</h2>
+      <div id="count"></div>
+    </div>
+
+    <div id="request-list"></div>
+<div id="requestInfoBox" class="info-box">
+  <h2 id="infoTitle"></h2>
+  <p id="infoSubtitle"></p>
+
+  <p><strong>Username:</strong> <span id="username"></span></p>
+  <p><strong>Category:</strong> <span id="category"></span></p>
+  <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+  <div id="urlContainer"></div>
+  <div id="errorMessage" style="color: red;"></div>
+<button class ="closebtn" onclick="hideRequestInfo()">Close</button>
+    <!-- hidden detail panel 
+    <div id="requestInfoBox" class="info-box">
+      <h3 id="infoTitle"></h3>
+      <p id="infoSubtitle"></p>
+      <ul>
+        <li>Username: <span id="username"></span></li>
+        <li>Category: <span id="category"></span></li>
+        <li>Quantity: <span id="quantity"></span></li>
+      </ul>
+      <div id="urlContainer"></div>
+      <button onclick="updateRequestStatus('Accepted')">Mark Accepted</button>
+      <button onclick="updateRequestStatus('Rejected')">Mark Rejected</button>
+      <button onclick="document.getElementById('requestInfoBox').classList.remove('show')">Close</button>
+    </div>
+-->
+  </div>
+</body>
+</html>
+
+

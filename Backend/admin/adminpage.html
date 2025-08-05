@@ -1,0 +1,255 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NGO Requests</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <button class="nav-btn active">NGO Requests</button>
+    <button class="nav-btn">User Requests</button>
+    <button class="nav-btn">Register NGO</button>
+    <button class="nav-btn">Item Deliveries</button>
+    <button class="nav-btn">Request History</button>
+  </nav>
+
+  <main class="container">
+    <h1>NGO Registration Requests</h1>
+    <p class="subheading">Review and approve NGO registration requests</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div>Food For All</div>
+          <p class="email">contact@foodforall.org</p>
+        </div>
+        <span class="badge pending">Pending</span>
+      </div>
+      <p>Non-profit organization focused on providing meals to homeless individuals</p>
+      <p class="submitted">Submitted: 2024-01-15</p>
+      <div class="buttons">
+        <button class="approve" onclick="approveRequest(this)">✔ Approve</button>
+        <button class="deny" onclick="denyRequest(this)">✖ Deny</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div>Clean Water Initiative</div>
+          <p class="email">info@cleanwater.org</p>
+        </div>
+        <span class="badge approved">Approved</span>
+      </div>
+      <p>Organization dedicated to providing clean water access in rural areas</p>
+      <p class="submitted">Submitted: 2024-01-10</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="adminpage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="adminpage.js" defer></script>
+
+    <title>Admin Page</title>
+</head>
+<body>
+
+<div class="box">
+
+    <div class="Header">
+        <h1>Admin Dashboard</h1>
+   
+
+<div class="cardgrid">
+    <div class="card">
+        <div class="total users">
+            <div>Total Users</div>
+            <div class="icon">👤</div>
+        </div>
+        </div>
+  
+<div class="card">
+    <div class="total ngo">
+        <div class="label">Total NGOs</div>
+        <div class="icon">👥</div>
+    </div>
+    </div>
+
+<div class="card">
+    <div class="pendingrequests">
+        <div class="label">Oustanding NGO Requests</div>
+        <div class="icon">📄</div>
+</div>
+</div>
+
+
+
+<div class="card">
+<div class="Outstanding User Requets">
+    <div class="label">Oustanding User Requests </div>
+     
+    <div class="icon">📦</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+</div>
+<!--
+<div class="tabsbox">
+
+  <div class="buttons">
+ 
+ <button class="tab" onclick="showTab('user')">Register NGOs</button>
+   <button class="tab" onclick="showTab('registerNgo')">NGO Requests</button>
+    <button class="tab" onclick="showTab('NgoRequests')">User Requests</button>
+    <button class="tab" onclick="showTab('history')">Request History</button>
+  </div>
+
+  <div class="tab-content" id="user" style="display:none;">Showing User Requests...</div>
+  <div class="tab-content" id="RegisterNgo" style="display:none;">Register a new NGO form here.</div>
+  <div class="tab-content" id="NgoRequests" style="display:none;">Show New Ngo Request.</div>
+  <div class="tab-content" id="history" style="display:none;">Request History .</div>
+
+</div>
+
+
+
+
+
+<div class="tab-content" id="ngoform" style="display:none;">
+  <div class="form-container">
+    <h2>Register NGO</h2>
+    <form id="ngoForm">
+      <label for="ngoName">NGO Name:</label>
+      <input type="text" id="ngoName" name="ngoName" required />
+
+      <label for="username">Set Username:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Set Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+      <label for="contactEmail">Contact Email:</label>
+      <input type="email" id="contactEmail" name="contactEmail" required />
+
+      <label for="description">Address:</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+
+      <label for="registrationNumber">Pan Card Number:</label>
+      <input type="text" id="registrationNumber" name="registrationNumber" required />
+
+      <label for="contactNumber">Contact Number:</label>
+      <input type="tel" id="contactNumber" name="contactNumber" required />
+
+      <button type="submit">Register NGO</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<div class="tab-content" id="NgoRequests" style="display:none;">
+  <div class="request-list" id="request-list"></div>
+</div>
+</div>
+
+
+</body>
+</html>
+-->
+
+  <div class="tabsbox">
+        <div class="buttons">
+            <button class="tab active" onclick="window.location.href='RegisterNgo.html'"">Register NGOs</button>
+            <button class="tab" onclick="window.location.href='ngoreq.html'">NGO Requests</button>     
+            <button class="tab" onclick="window.location.href='OutsReq.html'">User Requests</button>     
+            <button class="tab" onclick="window.location.href='reqhis.html'">Request History</button>   
+        </div>
+        </div>
+        
+
+        <!-- 
+         <div class="form-container section" >
+          
+        <div class="tab-content" id="registerNgo" style="display:none;">
+              
+                <h2>Register New NGO</h2>
+                <form id="ngoForm">
+                    <label for="ngoName">NGO Name:</label>
+                    <input type="text" id="ngoName" name="ngoName" required />
+                    
+                    <label for="username">Set Username:</label>
+                    <input type="text" id="username" name="username" required />
+                    
+                    <label for="password">Set Password:</label>
+                    <input type="password" id="password" name="password" required />
+                    
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required />
+                    
+                    <label for="contactEmail">Contact Email:</label>
+                    <input type="email" id="contactEmail" name="contactEmail" required />
+                    
+                    <label for="description">Address:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                    
+                    <label for="registrationNumber">PAN Card Number:</label>
+                    <input type="text" id="registrationNumber" name="registrationNumber" required />
+                    
+                    <label for="contactNumber">Contact Number:</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required />
+                    
+                    <button type="submit">Register NGO</button>
+                </form>
+            </div>
+        </div>
+        Register NGO Form -->
+        <!-- NGO Requests -->
+        <div class="tab-content" id="ngoRequests" style="display:none;">
+        
+<div class="container">
+    <div class="header">
+      <h2>🚨 Outstanding Requests</h2>
+    </div>
+    
+    <div id="request-list"></div>
+  </div>
+
+
+  
+        
+        <!-- User Requests -->
+        <div class="tab-content" id="userRequests" style="display:none;">
+            <h2>User Donation Requests</h2>
+            <p>Here you can view user donation requests...</p>
+        </div>
+        
+        <!-- Request History -->
+        <div class="tab-content" id="history" style="display:none;">
+            <h2>All Pending Requests</h2>
+            <p>Here you can view the complete history of all pending requests...</p>
+        </div>
+    </div>
+
+</body>
+</html>

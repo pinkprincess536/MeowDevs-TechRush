@@ -1,0 +1,183 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+}
+
+/* Card Grid Container */
+.cardgrid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* Individual Card */
+.card {
+  flex: 1;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid #C63A3B;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 88px;
+}
+
+/* Label styling */
+.label {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+/* Heading */
+.three h1 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 15px;
+}
+
+/* Tabs Container */
+.tabsbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  margin-top: 45px;
+  margin-bottom: 35px;
+  width: 75%;
+  height: 35px;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Page Container */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid #C63A3B;
+  max-width: 600px;
+  margin: 40px auto;
+  min-height: 80vh;
+}
+
+/* Form Header Text */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* The white box containing the form */
+.form-container {
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: white;
+  border: 2px solid #C63A3B;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Each field block */
+.ngocard, .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* Label */
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Input styling */
+input, textarea, select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Submit Button */
+.registerNGO {
+  border-color: #C63A3B;
+  color: #C63A3B;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 18px;
+}
+
+.registerNGO:hover {
+  background-color: wheat;
+}
+
+.buttons {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.tab {
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #f3f4f6;
+  border: 2px solid #1f2937;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px #C63A3B;
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C63A3B;
+  border-radius: 10px;
+}
+
+
+
+.fcb{
+   background-color: #C63A3B;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+}

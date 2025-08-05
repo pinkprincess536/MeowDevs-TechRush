@@ -1,0 +1,33 @@
+.HeaderBar{
+    height: 65px;
+    background-color: darkgrey;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+    width:100%
+    
+   
+}
+
+
+.card{
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   }
+
+ .flex-container {
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center;     /* Center horizontally */
+  gap: 1.5rem;             /* Space between cards */
+  padding: 2rem;
+}
+

@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outstanding Requests</title>
+  <link rel="stylesheet" href="outsreq.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>🚨 Outstanding Requests</h2>
+      <p id="count">0 Requests waiting for attention</p>
+   
+    </div>
+    
+    <div id="request-list"></div>
+  </div>
+
+
+  
+
+
+  <script src="outsreq.js"></script>
+</body>
+</html>
+
+const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+async function loadRequests() {
+  const { data, error } = await supabase
+    .from('ngo-requests')
+    .select('id, created_at, ngo_id, status')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error("Error loading requests:", error.message);
+    return;
+  }
+
+  renderRequests(data);
+}
+
+function renderRequests(requests) {
+  const list = document.getElementById('request-list');
+  list.innerHTML = '';
+
+  document.getElementById('count').innerText = `${requests.length} requests waiting for attention`;
+
+  requests.forEach(req => {
+    const item = document.createElement('div');
+    item.className = 'request-item';
+   
+
+    item.innerHTML = `
+      <div class="request-title">Request #${req.id}</div>
+      <div class="request-meta">
+        👤 ${req.username}
+        <span class="tag">${req.category}</span>
+        <span class="tag">${req.status}</span>
+        <button class="ViewDetails">View Details</button>
+      </div>
+    `;
+
+    
+
+    list.appendChild(item);
+  });
+}
+
+// Real-time updates
+supabase
+  .channel('requests-updates')
+  .on('postgres_changes', {
+    event: '*',
+    schema: 'public',
+    table: 'requests',
+    filter: 'status=eq.pending'
+  }, payload => {
+    console.log('Realtime update:', payload);
+    loadRequests();
+  })
+  .subscribe();
+  
+loadRequests();
+
+
