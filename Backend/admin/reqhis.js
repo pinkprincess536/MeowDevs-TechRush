@@ -7,7 +7,7 @@ async function loadRequests() {
   const { data, error } = await supabase
     .from('requests')
     .select('*')
-    .in('status', ['Accepted','Rejected', 'Dropped Off'])
+    .in('status', ['Accepted','Rejected', 'dropped off'])
    
 
   if (error) {
@@ -54,7 +54,7 @@ supabase
     table: 'requests',
   }, payload => {
     const status = payload.new?.status;
-    if (status === 'Accepted' || status === 'Rejected' || status === 'Dropped Off') {
+    if (status === 'Accepted' || status === 'Rejected' || status === 'dropped off') {
       console.log(`Realtime ${status} request:`, payload);
       loadRequests();
     }
