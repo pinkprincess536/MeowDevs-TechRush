@@ -34,7 +34,6 @@ body {
   font-size: 1rem;
 }
 
-/* Heading */
 .three h1 {
   font-size: 28px;
   font-weight: 600;
@@ -42,7 +41,7 @@ body {
   margin-bottom: 15px;
 }
 
-/* Tabs Container */
+
 .tabsbox {
   display: flex;
   justify-content: space-between;
@@ -58,7 +57,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Page Container */
+
 .form-content {
   display: flex;
   flex-direction: column;
@@ -95,20 +94,19 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Each field block */
+
 .ngocard, .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-/* Label */
 label {
   font-weight: 600;
   margin-bottom: 5px;
 }
 
-/* Input styling */
+
 input, textarea, select {
   padding: 10px;
   font-size: 1rem;
@@ -179,7 +177,7 @@ input, textarea, select {
       cursor: pointer;
       transition: background-color 0.3s ease;
 }
-/* Reset and base styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -194,14 +192,13 @@ body {
   line-height: 1.6;
 }
 
-/* Main container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Header section */
+
 .main-header {
   text-align: center;
   margin-bottom: 40px;
@@ -217,7 +214,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* Stats section */
+
 .stats-section {
   margin-bottom: 40px;
 }
@@ -287,7 +284,6 @@ body {
   margin-left: 15px;
 }
 
-/* Navigation tabs */
 .navigation-tabs {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
@@ -331,7 +327,7 @@ body {
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-/* Main content */
+
 .main-content {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
@@ -377,7 +373,7 @@ body {
   color: #6b7280;
 }
 
-/* Request items styling */
+
 .request-item {
   background: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
@@ -427,7 +423,7 @@ body {
   text-align: center;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
   .container {
     padding: 15px;
@@ -497,7 +493,6 @@ body {
   }
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }

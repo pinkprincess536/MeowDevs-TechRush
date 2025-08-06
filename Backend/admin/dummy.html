@@ -1,89 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Request History</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      display: flex;
-      gap: 20px;
-      justify-content: space-between;
-    }
-    .column {
-      flex: 1;
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .column h2 {
-      margin-top: 0;
-      font-size: 22px;
-      text-align: center;
-      color: #333;
-    }
-    .card {
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-    .card img {
-      width: 100%;
-      max-height: 150px;
-      object-fit: cover;
-      margin-top: 10px;
-      border-radius: 6px;
-    }
-    .status {
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="dummy.css">
+  
 </head>
 <body>
-
-
-  
   <div class="container">
     
-    <!-- Left Column: User Requests -->
-    <div class="column" id="userRequests">
+
+    <div class="column" id="requestsBox1">
       <h2>User Requests</h2>
-      <!-- Cards inserted by JS -->
+    
     </div>
 
-    <!-- Right Column: NGO Requests -->
-    <div class="column" id="ngoRequests">
+    <div class="column" id="requestsBox2">
       <h2>NGO Requests</h2>
-      <!-- Cards inserted by JS -->
+     
     </div>
 
   </div>
 
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+    const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     async function fetchData() {
-      // Fetch User Requests
+     
       const { data: userData } = await supabase
         .from('requests')
         .select('*')
-        .in('status', ['Accepted', 'Rejected']);
+        .in('status', ['Accepted', 'Rejected','dropped off']);
 
-      const userContainer = document.getElementById('userRequests');
+      const userContainer = document.getElementById('requestsBox1');
       userData.forEach(req => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -92,7 +45,7 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
           <p><strong>Username:</strong> ${req.username}</p>
           <p><strong>Quantity:</strong> ${req.quantity}</p>
           <p class="status"><strong>Status:</strong> ${req.status}</p>
-          <img src="${req.image_url}" alt="Request Image"/>
+          ${req.image_url ? `<img src="${req.image_url}" alt="Request Image"/>` : ''}
         `;
         userContainer.appendChild(card);
       });
@@ -103,7 +56,7 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
         .select('*')
         .in('status', ['Accepted', 'Rejected']);
 
-      const ngoContainer = document.getElementById('ngoRequests');
+      const ngoContainer = document.getElementById('requestsBox2');
       ngoData.forEach(req => {
         const card = document.createElement('div');
         card.className = 'card';

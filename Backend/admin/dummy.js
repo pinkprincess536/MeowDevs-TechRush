@@ -5,15 +5,15 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 let currentRequestId = null;
 
 async function loadRequests() {
-  // Fetch user requests
+
   const { data: userData, error: userError } = await supabase
     .from('requests')
     .select('*')
-    .in('status', ['Accepted', 'Rejected']);
+    .in('status', ['Accepted', 'Rejected','dropped off']);
 
-  // Fetch NGO requests
+
   const { data: ngoData, error: ngoError } = await supabase
-    .from('ngorequests')
+    .from('ngo-requests')
     .select('*')
     .in('status', ['Accepted', 'Rejected']);
 
@@ -79,8 +79,7 @@ async function showUserRequestInfo(requestId) {
   document.getElementById('quantity').textContent = data.quantity;
   document.getElementById('requestInfoBox').style.display = 'block';
 
-  loadRequestImageUrl(data.image_url); // Show image only for user
-}
+  loadRequestImageUrl(data.image_url); 
 
 async function showNgoRequestInfo(requestId) {
   const { data, error } = await supabase
@@ -102,21 +101,17 @@ async function showNgoRequestInfo(requestId) {
   document.getElementById('quantity').textContent = data.quantity;
   document.getElementById('requestInfoBox').style.display = 'block';
 
-  // NGO does not have image
-  document.getElementById('urlContainer').innerHTML = '';
+ 
 }
 
 function loadRequestImageUrl(imagePath) {
   if (imagePath) {
     document.getElementById('urlContainer').innerHTML = `
-      <img src="${imagePath}" alt="Request Image" style="max-width: 100%; height: auto;" />
+      <img src="${imagePath}" alt="Request Image" style="max-width: 200px; height: auto,object-fit:contain;" />
     `;
-  } else {
-    document.getElementById('urlContainer').innerHTML = '<p>No image available.</p>';
-  }
+  } 
 }
 
-// Realtime listeners
 supabase.channel('requests-updates')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'requests' }, payload => {
     const status = payload.new?.status;
@@ -127,8 +122,8 @@ supabase.channel('requests-updates')
   })
   .subscribe();
 
-supabase.channel('ngorequests-updates')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'ngorequests' }, payload => {
+supabase.channel('ngo-requests-updates')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'ngo-requests' }, payload => {
     const status = payload.new?.status;
     if (['Accepted', 'Rejected'].includes(status)) {
       console.log(`Realtime NGO request update:`, payload);

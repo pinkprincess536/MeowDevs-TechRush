@@ -13,18 +13,12 @@ document.getElementById('login-form').addEventListener('submit', async function(
   const password = document.getElementById('password').value;
 
   const errorMsg = document.getElementById('error-msg');
-  errorMsg.textContent = ''; // Clear previous error
+  errorMsg.textContent = '';
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
   });
 
-  if (error) {
-    console.error("Login Error:", error);
-    errorMsg.textContent = '❌ ' + error.message;
-  } else {
-    console.log("Login Success:", data);
-    window.location.href = 'adminpage.html';
-  }
+ 
 });

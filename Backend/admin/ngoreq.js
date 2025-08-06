@@ -91,7 +91,7 @@ async function updateRequestStatus(requestId, newStatus) {
     console.error("Supabase error:", error);
   } else {
     alert(`Request marked as ${newStatus}`);
-    // Optionally hide info box if present
+    
     const infoBox = document.getElementById('requestInfoBox');
     if (infoBox) infoBox.classList.remove('show');
     loadRequests();

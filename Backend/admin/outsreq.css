@@ -145,3 +145,92 @@ body {
   display: flex;
   gap: 10px;
 }
+
+
+.notify-ngo-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.notify-ngo-btn:hover {
+  background-color: #218838;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 2px solid #C63A3B;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #C63A3B;
+}
+
+#ngoList {
+  margin-top: 20px;
+}
+
+.ngo-item {
+  padding: 15px;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ngo-item:hover {
+  background-color: #f8f9fa;
+  border-color: #C63A3B;
+}
+
+.ngo-item.selected {
+  background-color: #C63A3B;
+  color: white;
+}
+
+.ngo-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ngo-address {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+}

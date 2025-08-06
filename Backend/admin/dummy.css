@@ -3,13 +3,16 @@
   justify-content: space-between;
   gap: 40px;
   padding: 20px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: #667eea;
 }
 
 .column {
   flex: 1;
-  background-color: #f9f9f9;
+  background-color: #667eea;
   padding: 20px;
   border-radius: 12px;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -24,3 +27,35 @@
 .buttons:active #details{
   display: inline;
 }
+ 
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+     
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card {
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .status {
+      font-weight: bold;
+    }
