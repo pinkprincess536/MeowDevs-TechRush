@@ -50,6 +50,9 @@
   </style>
 </head>
 <body>
+
+
+  
   <div class="container">
     
     <!-- Left Column: User Requests -->
@@ -76,9 +79,9 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
     async function fetchData() {
       // Fetch User Requests
       const { data: userData } = await supabase
-        .from('user_requests')
+        .from('requests')
         .select('*')
-        .in('status', ['accepted', 'rejected']);
+        .in('status', ['Accepted', 'Rejected']);
 
       const userContainer = document.getElementById('userRequests');
       userData.forEach(req => {
@@ -96,9 +99,9 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
       // Fetch NGO Requests
       const { data: ngoData } = await supabase
-        .from('ngo_requests')
+        .from('ngo-requests')
         .select('*')
-        .in('status', ['accepted', 'rejected']);
+        .in('status', ['Accepted', 'Rejected']);
 
       const ngoContainer = document.getElementById('ngoRequests');
       ngoData.forEach(req => {

@@ -5,7 +5,7 @@ body {
   background-color: #f9fafb;
 }
 
-/* Card Grid Container */
+
 .cardgrid {
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* Individual Card */
+
 .card {
   flex: 1;
   background-color: white;
@@ -29,7 +29,6 @@ body {
   min-height: 88px;
 }
 
-/* Label styling */
 .label {
   color: #6b7280;
   font-size: 1rem;
@@ -74,14 +73,14 @@ body {
   min-height: 80vh;
 }
 
-/* Form Header Text */
+
 .header {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* The white box containing the form */
+
 .form-container {
   
   display: flex;
@@ -119,7 +118,6 @@ input, textarea, select {
   box-sizing: border-box;
 }
 
-/* Submit Button */
 .registerNGO {
   border-color: #C63A3B;
   color: #C63A3B;
