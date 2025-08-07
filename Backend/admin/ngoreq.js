@@ -8,7 +8,7 @@ async function loadRequests() {
     .from('ngo-requests')
     .select('*')
     .eq('status', 'pending')
-   
+    .order('id', { ascending: false })
 
   if (error) {
     console.error("Error loading requests:", error.message);

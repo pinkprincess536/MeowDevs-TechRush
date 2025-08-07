@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+ 
+   body {
+font-family: Arial, sans-serif;
+padding: 40px 20px;
+
+background: linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+
+background-image:
+  linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%),
+  repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.01) 0,
+    rgba(255,255,255,0.01) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+  
+
+  h1 {
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500px;
+    margin-bottom: 40px;
+    color:#0f0b0b
+  }
+
+  .ngo-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ngo-card {
+    background-color: #ffc300ff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    text-align: center;
+  }
+
+  .ngo-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .ngo-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .ngo-card p {
+    padding: 15px;
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+   
+     body {
+  font-family: Arial, sans-serif;
+  padding: 40px 20px;
+  
+  background: linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  background-image:
+    linear-gradient(90deg, hsla(332, 53%, 82%, 1) 0%, hsla(176, 57%, 89%, 1) 100%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.01) 0,
+      rgba(255,255,255,0.01) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+}
+
+    
+
+    h1 {
+      text-align: center;
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-weight: 500px;
+      margin-bottom: 40px;
+      color:#0f0b0b
+    }
+
+    .ngo-grid {
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ngo-card {
+      background-color: #ffc300ff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      text-align: center;
+    }
+
+    .ngo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .ngo-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      padding: 10px;
+      background-color: #fff;
+    }
+
+    .ngo-card p {
+      padding: 15px;
+      font-weight: bold;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }

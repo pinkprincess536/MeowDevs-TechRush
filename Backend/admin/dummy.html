@@ -20,6 +20,35 @@
      
     </div>
 
+
+    <div id="requestModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">Request Details</h2>
+        <div id="modalBody">
+          <p><strong>Username:</strong> <span id="modalUsername"></span></p>
+          <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+          <p><strong>Quantity:</strong> <span id="modalQuantity"></span></p>
+          <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+          <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+          <div id="modalImage"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="notify-btn" onclick="notifyUsers()">Notify Users</button>
+          <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div id="ngoModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeNgoModal()">&times;</span>
+        <h2>Select NGO to Notify</h2>
+        <div id="ngoList"></div>
+      </div>
+    </div>
+
   </div>
 
   <script type="module">
@@ -38,22 +67,21 @@
         .in('status', ['Accepted', 'Rejected','dropped off']);
 
       const userContainer = document.getElementById('requestsBox1');
+      userContainer.innerHTML = '';
       userData.forEach(req => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-        
           <p><strong>Username:</strong> ${req.username}</p>
           <p><strong>Category:</strong> ${req.category}</p>
           <p><strong>Quantity:</strong> ${req.quantity}</p>
           <p><strong>Description:</strong> ${req.description}</p>
           <p class="status"><strong>Status:</strong> ${req.status}</p>
-          ${req.image_url ? `<img src="${req.image_url}" alt="Request Image"/>` : ''}
+          <button class="ViewDetails" data-request-id="${req.id}">View Details</button>
         `;
         userContainer.appendChild(card);
       });
 
-      // Fetch NGO Requests
       const { data: ngoData } = await supabase
         .from('ngo-requests')
         .select('*')
@@ -72,9 +100,215 @@
         `;
         ngoContainer.appendChild(card);
       });
+
+  
+      document.querySelectorAll('.ViewDetails').forEach(button => {
+        button.addEventListener('click', function() {
+          const requestId = this.getAttribute('data-request-id');
+          showRequestInfo(requestId);
+        });
+      });
     }
 
     fetchData();
+
+    async function showRequestInfo(requestId) {
+      const modal = document.getElementById('requestModal');
+      const modalTitle = document.getElementById('modalTitle');
+   
+      modalTitle.textContent = 'Loading...';
+      modal.style.display = 'block';
+      
+      try {
+        const { data, error } = await supabase
+          .from('requests')
+          .select('*')
+          .eq('id', requestId)
+          .single();
+        
+        if (error) throw error;
+        
+        modalTitle.textContent = `Request #${requestId}`;
+        document.getElementById('modalUsername').textContent = data.username;
+        document.getElementById('modalCategory').textContent = data.category;
+        document.getElementById('modalQuantity').textContent = data.quantity;
+        document.getElementById('modalDescription').textContent = data.description;
+        document.getElementById('modalStatus').textContent = data.status;
+        
+        const modalImage = document.getElementById('modalImage');
+        if (data.image_url) {
+          modalImage.innerHTML = `<img src="${data.image_url}" alt="Request Image"/>`;
+        } else {
+          modalImage.innerHTML = '<p>No image available</p>';
+        }
+        
+        window.currentRequestId = requestId;
+        
+      } catch (error) {
+        console.error('Error loading request details:', error);
+        modalTitle.textContent = 'Error Loading Request';
+        document.getElementById('modalBody').innerHTML = '<p style="color: red;">Failed to load request details</p>';
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('requestModal').style.display = 'none';
+      window.currentRequestId = null;
+    }
+
+    let selectedNgoId = null;
+    async function notifyUsers() {
+      if (!window.currentRequestId) {
+        alert('No request selected');
+        return;
+      }
+      const ngoModal = document.getElementById('ngoModal');
+      ngoModal.style.display = 'block';
+      
+      await loadNgos();
+    }
+    window.closeModal = closeModal;
+    window.notifyUsers = notifyUsers;
+    window.closeNgoModal = closeNgoModal;
+
+    async function loadNgos() {
+      const { data, error } = await supabase
+        .from('RegisterNGO')
+        .select('id, ngo_name, Address, email');
+
+      if (error) {
+        console.error("Error loading NGOs:", error.message);
+        document.getElementById('ngoList').innerHTML = '<p style="color: red;">Error loading NGOs</p>';
+        return;
+      }
+
+      renderNgos(data);
+    }
+
+    function renderNgos(ngos) {
+      const ngoList = document.getElementById('ngoList');
+      ngoList.innerHTML = '';
+
+      if (ngos.length === 0) {
+        ngoList.innerHTML = '<p>No NGOs found</p>';
+        return;
+      }
+
+      ngos.forEach(ngo => {
+        const ngoItem = document.createElement('div');
+        ngoItem.className = 'ngo-item';
+        ngoItem.onclick = () => selectNgo(ngo.id, ngoItem);
+        
+        ngoItem.innerHTML = `
+          <div class="ngo-name">${ngo.ngo_name}</div>
+          <div class="ngo-address">${ngo.Address}</div>
+        `;
+        
+        ngoList.appendChild(ngoItem);
+      });
+
+      const assignButton = document.createElement('button');
+      assignButton.textContent = 'Assign Selected NGO';
+      assignButton.className = 'notify-ngo-btn';
+      assignButton.onclick = assignNgoToRequest;
+      assignButton.style.marginTop = '20px';
+      assignButton.style.width = '100%';
+      assignButton.disabled = true;
+      assignButton.id = 'assignNgoBtn';
+      
+      ngoList.appendChild(assignButton);
+    }
+
+    function selectNgo(ngoId, element) {
+      const allNgos = document.querySelectorAll('.ngo-item');
+      allNgos.forEach(ngo => ngo.classList.remove('selected'));
+      
+      element.classList.add('selected');
+      selectedNgoId = ngoId;
+      
+      const assignBtn = document.getElementById('assignNgoBtn');
+      if (assignBtn) {
+        assignBtn.disabled = false;
+      }
+    }
+
+    async function assignNgoToRequest() {
+      if (!selectedNgoId || !window.currentRequestId) {
+        alert("Please select an NGO first.");
+        return;
+      }
+
+      const selectedNgo = await supabase
+        .from('RegisterNGO')
+        .select('ngo_name, email')
+        .eq('id', selectedNgoId)
+        .single();
+
+      if (!selectedNgo.data) {
+        alert("Error: NGO not found.");
+        return;
+      }
+
+      const { error: updateError } = await supabase
+        .from('requests')
+        .update({ ngo_assigned_to: selectedNgo.data.email })
+        .eq('id', window.currentRequestId);
+
+      if (updateError) {
+        alert("Failed to assign NGO to request.");
+        console.error("Supabase error:", updateError);
+        return;
+      }
+
+      const { data: requestData } = await supabase
+        .from('requests')
+        .select('category, quantity, description')
+        .eq('id', window.currentRequestId)
+        .single();
+
+      if (!requestData) {
+        alert("Error: Request not found.");
+        return;
+      }
+
+      const { error: insertError } = await supabase
+        .from('ngo-requests')
+        .insert({
+          ngo_id: selectedNgo.data.email,
+          category: requestData.category,
+          quantity: requestData.quantity,
+          description: requestData.description,
+          status: 'pending'
+        });
+
+      if (insertError) {
+        console.error("Error creating ngo-requests entry:", insertError);
+      }
+
+      alert(`Successfully assigned ${selectedNgo.data.ngo_name} to Request #${window.currentRequestId}`);
+      closeNgoModal();
+      closeModal();
+      fetchData(); 
+    }
+
+    function closeNgoModal() {
+      const modal = document.getElementById('ngoModal');
+      modal.style.display = 'none';
+      selectedNgoId = null;
+    }
+
+    window.onclick = function(event) {
+      const requestModal = document.getElementById('requestModal');
+      const ngoModal = document.getElementById('ngoModal');
+      
+      if (event.target === requestModal) {
+        closeModal();
+      }
+      
+      if (event.target === ngoModal) {
+        closeNgoModal();
+      }
+    }
   </script>
 </body>
 </html>

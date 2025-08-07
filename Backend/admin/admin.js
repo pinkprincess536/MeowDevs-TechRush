@@ -22,7 +22,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
   if (error) {
     console.error("Login Error:", error);
-    errorMsg.textContent = '❌ ' + error.message;
+    errorMsg.textContent =  + error.message;
   } else {
     console.log("Login Success:", data);
     window.location.href = 'adminpage.html';
