@@ -13,7 +13,7 @@ async function loadDashboardStats() {
   const { data: userData } = await supabase
     .from('requests')
     .select('username')
-    .not('username', 'is', null);
+    
 
   if (userData) {
     const uniqueUsers = [...new Set(userData.map(req => req.username))];

@@ -34,6 +34,7 @@
       const { data: userData } = await supabase
         .from('requests')
         .select('*')
+        .order('id', { ascending: false })
         .in('status', ['Accepted', 'Rejected','dropped off']);
 
       const userContainer = document.getElementById('requestsBox1');
@@ -41,9 +42,11 @@
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <p><strong>Category:</strong> ${req.category}</p>
+        
           <p><strong>Username:</strong> ${req.username}</p>
+          <p><strong>Category:</strong> ${req.category}</p>
           <p><strong>Quantity:</strong> ${req.quantity}</p>
+          <p><strong>Description:</strong> ${req.description}</p>
           <p class="status"><strong>Status:</strong> ${req.status}</p>
           ${req.image_url ? `<img src="${req.image_url}" alt="Request Image"/>` : ''}
         `;
@@ -54,7 +57,7 @@
       const { data: ngoData } = await supabase
         .from('ngo-requests')
         .select('*')
-        .in('status', ['Accepted', 'Rejected']);
+        .in('status', ['Accepted', 'Rejected','Received']);
 
       const ngoContainer = document.getElementById('requestsBox2');
       ngoData.forEach(req => {

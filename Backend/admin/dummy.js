@@ -9,13 +9,14 @@ async function loadRequests() {
   const { data: userData, error: userError } = await supabase
     .from('requests')
     .select('*')
+    .order('id', { ascending: false })
     .in('status', ['Accepted', 'Rejected','dropped off']);
 
 
   const { data: ngoData, error: ngoError } = await supabase
     .from('ngo-requests')
     .select('*')
-    .in('status', ['Accepted', 'Rejected']);
+    .in('status', ['Accepted', 'Rejected','Received']);
 
   if (userError || ngoError) {
     console.error("Error loading requests:", userError?.message, ngoError?.message);
@@ -26,6 +27,8 @@ async function loadRequests() {
   renderNgoRequests(ngoData);
 }
 
+
+/*
 function renderUserRequests(requests) {
   const box = document.getElementById('requestsBox1');
   box.innerHTML = '';
@@ -80,6 +83,7 @@ async function showUserRequestInfo(requestId) {
   document.getElementById('requestInfoBox').style.display = 'block';
 
   loadRequestImageUrl(data.image_url); 
+}
 
 async function showNgoRequestInfo(requestId) {
   const { data, error } = await supabase
@@ -115,7 +119,7 @@ function loadRequestImageUrl(imagePath) {
 supabase.channel('requests-updates')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'requests' }, payload => {
     const status = payload.new?.status;
-    if (['Accepted', 'Rejected'].includes(status)) {
+    if (['Accepted', 'Rejected',].includes(status)) {
       console.log(`Realtime USER request update:`, payload);
       loadRequests();
     }
@@ -125,7 +129,7 @@ supabase.channel('requests-updates')
 supabase.channel('ngo-requests-updates')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'ngo-requests' }, payload => {
     const status = payload.new?.status;
-    if (['Accepted', 'Rejected'].includes(status)) {
+    if (['Accepted', 'Rejected','Received'].includes(status)) {
       console.log(`Realtime NGO request update:`, payload);
       loadRequests();
     }
@@ -135,3 +139,4 @@ supabase.channel('ngo-requests-updates')
 window.addEventListener('DOMContentLoaded', () => {
   loadRequests();
 });
+*/

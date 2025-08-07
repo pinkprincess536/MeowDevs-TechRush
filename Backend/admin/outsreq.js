@@ -11,6 +11,7 @@ async function loadRequests() {
     .from('requests')
     .select('*')
     .eq('status', 'pending')
+    .order('id', { ascending: false });
    
 
   if (error) {

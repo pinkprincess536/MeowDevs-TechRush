@@ -10,7 +10,7 @@ async function loadRequests() {
     .from('requests')
     .select('*')
     .in('status', ['Accepted','Rejected', 'dropped off'])
-   
+    .order('id', { ascending: false });
 
   if (error) {
     console.error("Error loading requests:", error.message);
@@ -260,7 +260,7 @@ async function assignNgoToRequest() {
       ngo_id: selectedNgo.data.email,
       category: requestData.category,
       quantity: requestData.quantity,
-      description: `Request #${currentRequestId} - ${requestData.category}`, 
+      description: `${requestData.description}`, 
       status: 'pending'
     });
 

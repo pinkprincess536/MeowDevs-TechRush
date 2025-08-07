@@ -39,7 +39,7 @@ function renderRequests(requests) {
         <br>
         <span class="tag">${req.status}</span>
         <br>
-        <span class="tag">${req.created_at}</span>
+        <span class="tag">${new Date(req.created_at).toLocaleDateString()}</span>
         <br>
         <span class="tag">${req.description}</span>
         <br>
