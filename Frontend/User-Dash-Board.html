@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Joy</title>
+    <link rel="stylesheet" href="User-Dash-Board.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+
+
+
+<body>
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="welcome">
+                <h1>Welcome Back :)</h1>
+            </div>
+            <div class="logout">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="quick-actions">
+            <div class="action-cards">
+                <div class="action-card" onclick="location.href='PagePage.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Make New Donation</h3>
+                    <p>Start your donation journey</p>
+                    
+                </div>
+                
+                <div class="action-card" onclick="location.href='About.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <h3>Explore NGOs</h3>
+                    <p>Find organizations to support</p>
+                   
+                </div>
+                
+                <div class="action-card" onclick="location.href='Outsreq.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3>View Donation Status</h3>
+                    <p>Track your contributions</p>
+                   
+                </div>
+            </div>
+        </div>
+
+        <section class="dashboard-news">
+            <h2 class="news-heading"><i class="fas fa-newspaper"></i> Latest Updates</h2>
+            <div class="news-container">
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSopYIw467o5e2icbpbraE_ebCuwSRD95Y3fg&s')"></div>
+                    <div class="news-content">
+                        <h3>Annual Charity Drive Begins</h3>
+                        <p class="news-date">June 15, 2025</p>
+                        <p>Our yearly donation drive has started with record participation from local communities.</p>
+                        
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://www.oceans-research.com/wp-content/uploads/2022/01/Short-term.jpg')"></div>
+                    <div class="news-content">
+                        <h3>New Volunteer Program</h3>
+                        <p class="news-date">June 10, 2025</p>
+                        <p>Join our expanded volunteer initiative with flexible hours and training provided.</p>
+                        
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://akm-img-a-in.tosshub.com/indiatoday/images/story/202002/children-876543_1280.jpeg?size=690:388')"></div>
+                    <div class="news-content">
+                        <h3>Education Initiative Success</h3>
+                        <p class="news-date">June 5, 2025</p>
+                        <p>Over 500 children received school supplies through our education program last month.</p>
+                       
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        
+
+    <script>
+        function logout(){
+            localStorage.clear();
+            location.replace('HomePage.html');
+        }
+    </script>
+
+
+</body>
+</html>
+

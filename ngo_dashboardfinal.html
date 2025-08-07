@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NGO Dashboard</title>
+  <audio id="notificationSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+  </audio>
   <style>
     * {
         margin: 0;
@@ -42,6 +45,88 @@
     /* .navbar-brand {
       font-size: 100px; 
     } */
+     .notification-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      max-width: 350px;
+    }
+
+    .notification-popup {
+      background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+      color: #333;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      margin-bottom: 10px;
+      transform: translateX(400px);
+      transition: transform 0.5s ease-in-out;
+      border-left: 5px solid #9064cea0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notification-popup.show {
+      transform: translateX(0);
+    }
+
+    .notification-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(69deg,#40C9FF , #E81CFF);
+      animation: progress 5s linear;
+    }
+
+    @keyframes progress {
+      0% { width: 100%; }
+      100% { width: 0%; }
+    }
+
+    .notification-title {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #C63A3B;
+    }
+
+    .notification-message {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .notification-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-close:hover {
+      color: #C63A3B;
+    }
+
+    .notification-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
     .navbar { 
       background-color:#F5F5F5;
       padding: 2px 2px;
@@ -251,7 +336,7 @@
   </style>
 </head>
 <body>
-
+  <div id="notification-container" class="notification-container"></div>
   <nav class="navbar">
   <div class="logo-container">
   <h1 class="joy">𝒥𝑜𝓎</h1>
@@ -287,7 +372,7 @@
   <script>
     const ngoEmail = localStorage.getItem('ngo_email');
     if (!ngoEmail) {
-      window.location.href = 'ngo_login.html'; 
+      window.location.href = 'index.html'; 
     }
      async function loadNGOName() {
       const { data, error } = await supabase
@@ -459,11 +544,117 @@
     }
     function logout() {
       localStorage.removeItem('ngo_email');
-      window.location.href = 'ngo_login_final.html';
+      window.location.href = 'index.html';
     }
+    function showNotification(title, message, type = 'info') {
+      const container = document.getElementById('notification-container');
+      const notification = document.createElement('div');
+      notification.className = 'notification-popup';
+      
+      const icons = {
+        'success': '✅',
+        'error': '❌',
+        'warning': '⚠️',
+        'info': 'ℹ️'
+      };
+      
+      notification.innerHTML = `
+        <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+        <div class="notification-title">
+          <span class="notification-icon">${icons[type]}</span>
+          ${title}
+        </div>
+        <div class="notification-message">${message}</div>
+      `;
+      
+      container.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            if (notification.parentElement) {
+              notification.remove();
+            }
+          }, 500);
+        }
+      }, 5000);
+    }
+
+    function playNotificationSound() {
+      const audio = document.getElementById('notificationSound');
+      if (audio) {
+        audio.volume = 0.8; 
+        audio.play().catch(e => console.log('Audio play failed:', e));
+      }
+    }
+    function setupNotificationSubscription() {
+      supabase
+        .channel('ngo-notifications')
+        .on('postgres_changes', {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'ngo-requests',
+          filter: `ngo_id=eq.${ngoEmail}`
+        }, (payload) => {
+          console.log('New request assigned to NGO:', payload);
+          
+          playNotificationSound();
+          showNotification(
+            'New Request Assigned!', 
+            'A new request has been assigned to your NGO. Check the Active Requests section.',
+            'success'
+          );
+          
+          loadRequests();
+        })
+        .on('postgres_changes', {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'ngo-requests',
+          filter: `ngo_id=eq.${ngoEmail}`
+        }, (payload) => {
+          console.log('Request updated for NGO:', payload);
+          
+          playNotificationSound();
+          
+          let title = 'Request Updated!';
+          let message = 'A request has been updated for your NGO.';
+          let type = 'info';
+          
+          if (payload.new.status === 'approved') {
+            title = 'Request Approved!';
+            message = 'Your request has been approved! You can now mark it as received.';
+            type = 'success';
+          } else if (payload.new.status === 'rejected') {
+            title = 'Request Rejected';
+            message = 'Your request has been rejected. Please check the details.';
+            type = 'error';
+          } else if (payload.new.received) {
+            title = 'Request Completed!';
+            message = 'Request has been marked as received.';
+            type = 'success';
+          }
+          
+          showNotification(title, message, type);
+          
+          loadRequests();
+        })
+        .subscribe();
+    }
+
+    function initializeNotifications() {
+      setupNotificationSubscription();
+    }
+
     loadRequests();
     loadCategoryCards();
     loadNGOName(); 
+     initializeNotifications();
   </script>
 </body>
 </html>

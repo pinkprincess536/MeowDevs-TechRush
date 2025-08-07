@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CharityFlow</title>
+  <link rel="stylesheet" href="HomePage.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+ <header>
+  <div class="head">
+    <div class="header-left">
+      <h1 class="joy">𝒥𝑜𝓎</h1>
+    </div>
+    
+    <div class="header-right">
+      <div class="register-container">
+        <button class="top-button" onclick="location.href=''">Register</button>
+      </div>
+      <div class="login-container">
+        
+       
+        <button class="top-button"  onclick="location.href=''">Login</button>
+        <div class="dropdown">
+          <a href="UserLogin.html">User Login </a>
+          <a href="ngo_login_final">NGO Login</a>
+          <a href="AdminLogin">Admin Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+<main>
+  <div class="main">
+    <div class="buttons-container">
+      <div class="text">
+      <h1 class="heading">Connecting Hearts to Causes!</h1>
+      <p class="desc">Help us spread happiness and content.</p>
+      </div>
+      <div class="button-container">
+        <button class="main-buttons" id="start-donating" onclick="location.href='DonationForm.html'">Start Donating</button>
+        <button class="main-buttons" id="learn-more" onclick="location.href='About.html'">Learn More</button>
+      </div>
+    </div>
+    <div class="image">
+     <!--<img src="https://www.angelcharity.org/wp-content/uploads/hero-background.jpg"> -->
+    </div>
+  </div>
+
+
+
+  <section class="donation-message">
+  <div class="message-content">
+    <div id="head">
+    <h2 >Your Contribution Matters</h2>
+    </div>
+    <p>Every act of generosity creates ripples of change. Together, we're building a brighter future for those in need.</p>
+  </div>
+</section>
+
+
+
+
+  <div class="middle">
+    
+    <div class="info">
+      <h1 class="section-heading">How We Work?</h1>
+      <div class="work-steps">
+
+
+
+        <div class="step-container">
+          <div class="step-box box1" >
+            <div class="step-icon">
+              <p>₹</p>
+            </div>
+            <h2 class="step-title">Make a Donation</h2>
+            <div class="step-content">
+              <p>Select items you want to donate and fill out our simple form.</p>
+              
+            </div>
+          </div>
+        </div>
+        
+       
+        
+        <div class="step-container">
+          <div class="step-box box2" >
+            <div class="step-icon">
+              <p>🛠️</p>
+            </div>
+            <h2 class="step-title">Admin Verification</h2>
+            <div class="step-content">
+              <p>Our team reviews and approves your donation request.</p>
+              
+            </div>
+          </div>
+        </div>
+        
+       
+        
+        <div class="step-container">
+          <div class="step-box box3" >
+            <div class="step-icon">
+              <p>📦</p>
+            </div>
+            <h2 class="step-title">Drop & Receive</h2>
+            <div class="step-content">
+              <p>Deliver items to our center and receive gratitude from recipients.</p>
+              
+            </div>
+          </div>
+        </div>
+
+
+
+
+        
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+
+  
+
+
+<div class="counter-section">
+  <h2 class="counter-heading">Our Impact So Far</h2>
+  <div class="counters-container">
+    <div class="counter-box">
+      <div class="counter" data-target="12500">0</div>
+      <p class="counter-label">Donations Made</p>
+    </div>
+    <div class="counter-box">
+      <div class="counter" data-target="850">0</div>
+      <p class="counter-label">Happy Families</p>
+    </div>
+    <div class="counter-box">
+      <div class="counter" data-target="35">0</div>
+      <p class="counter-label">Cities Reached</p>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // Toggle step details
+  document.querySelectorAll('.step-toggle').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const stepBox = this.closest('.step-box');
+      const details = stepBox.querySelector('.step-details');
+      details.classList.toggle('visible');
+      this.classList.toggle('active');
+    });
+  });
+
+  // Animate steps on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const steps = document.querySelectorAll('.step-box');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    steps.forEach((step, index) => {
+      step.style.opacity = '0';
+      step.style.transform = 'translateY(20px)';
+      step.style.transition = `all 0.5s ease ${index * 0.2}s`;
+      observer.observe(step);
+    });
+  });
+
+  // Counter animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / speed;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+      
+      observer.observe(counter);
+    });
+  });
+</script>
+<section class="testimonials-section">
+  <h2 class="testimonials-heading">What People Are Saying</h2>
+  <div class="testimonials-container">
+    <div class="testimonial-card">
+      <p class="testimonial-text">“CharityFlow made it so easy to give back. I donated books and they reached the right hands. Truly heartwarming!”</p>
+      <p class="testimonial-author">– Riya Sharma, Donor</p>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">“Our NGO received essential supplies quickly. The platform is seamless and trustworthy.”</p>
+      <p class="testimonial-author">– Raj Patel, NGO Partner</p>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">“It’s amazing to see how a few clicks can impact lives. Kudos to the team!”</p>
+      <p class="testimonial-author">– Sneha Menon, Volunteer</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-column social-media">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+          <span>Facebook</span>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+          <span>Twitter</span>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-column contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-details">
+        <p><i class="fas fa-map-marker-alt"></i>Pune</p>
+        <p><i class="fas fa-phone"></i> 12345453</p>
+        <p><i class="fas fa-envelope"></i> info@charityflow.org</p>
+        <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p id="copyright-text">&copy; 2025 Joy. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+
+
+ 
+
+</body>
+</html>
