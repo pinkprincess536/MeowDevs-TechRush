@@ -1,4 +1,3 @@
-
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const SUPABASE_URL = 'https://owffebbhgkktxfcxcfdq.supabase.co';
@@ -8,23 +7,41 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.getElementById('login-form').addEventListener('submit', async function(e) {
   e.preventDefault();
-
+  
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-
+  
   const errorMsg = document.getElementById('error-msg');
-  errorMsg.textContent = ''; // Clear previous error
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    console.error("Login Error:", error);
-    errorMsg.textContent = '❌ ' + error.message;
-  } else {
-    console.log("Login Success:", data);
+  errorMsg.textContent = '';
+  
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    
+    
+    if (error) {
+      console.error("Login Error:", error);
+      errorMsg.textContent = "Login Error: " + error.message;
+      return; 
+    }
+    
+    
+    
+   
+    if (!data || !data.user || !data.session) {
+      errorMsg.textContent = "Invalid email or password";
+      return;
+    }
+    
+    
+    
+   
     window.location.href = 'adminpage.html';
+    
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    errorMsg.textContent = "An unexpected error occurred. Please try again.";
   }
 });
