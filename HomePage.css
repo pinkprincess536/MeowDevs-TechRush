@@ -687,7 +687,7 @@ footer {
     width:100px;
 
     border-radius: 50%;
-    background-image: url(Photo1.JPG);
+    background-image: url(photo1.JPG);
     background-size: cover;
 }
 .img3{
@@ -695,7 +695,7 @@ footer {
     width:100px;
 
     border-radius: 50%;
-    background-image: url(Photo3.JPG);
+    background-image: url(photo3.JPG);
     background-size: cover;
 }
 
@@ -718,4 +718,5 @@ footer {
   color: #8355c4;
   font-size: 0.95rem;
   text-align: center;
+
 }
