@@ -261,7 +261,7 @@ async function assignNgoToRequest() {
       category: requestData.category,
       quantity: requestData.quantity,
       description: `${requestData.description}`, 
-      status: 'pending'
+      status: 'Accepted'
     });
 
   if (insertError) {
@@ -280,4 +280,5 @@ window.onclick = function(event) {
   if (event.target === modal) {
     closeNgoModal();
   }
+
 }
