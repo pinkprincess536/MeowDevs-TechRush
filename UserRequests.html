@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Requests - CharityFlow</title>
+  <style>
+    body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9ff;
+    padding: 40px 20px;
+    margin: 0;
+    
+    }
+
+    h2 {
+    text-align: center;
+    color: #4e92d5;
+    font-size: 28px;
+    margin-bottom: 30px;
+    }
+
+    .request-card {
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease;
+    }
+
+    .request-card:hover {
+    transform: translateY(-4px);
+}
+
+    
+    #status-Accepted{
+      color:green
+    }
+    #status-Rejected{
+        color:red
+    }
+    #status-pending{
+        color:rgb(209, 148, 16);
+    }
+
+    #status-dropped\ off{
+        color:blue;
+    }
+
+    .request-card p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.request-card p strong {
+  color: #333;
+}
+
+    .btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 15px;
+        margin-top: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn:hover {
+    background-color: #45a049;
+}
+
+    .btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h2>My Requests</h2>
+  <div id="requestsContainer">Loading...</div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+    const supabaseUrl = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const userEmail = localStorage.getItem('email');
+    const requestsContainer = document.getElementById('requestsContainer');
+
+    async function fetchRequests() {
+      if (!userEmail) {
+        requestsContainer.innerHTML = '<p>User not logged in.</p>';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('requests')
+        .select('*')
+        .order('id',{ascending:false})
+        .eq('username', userEmail);//pranav{username must be equal to email}
+
+      if (error) {
+        console.error('Error fetching requests:', error.message);
+        requestsContainer.innerHTML = '<p>Error fetching requests.</p>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        requestsContainer.innerHTML = '<p>No requests found.</p>';
+        return;
+      }
+
+      requestsContainer.innerHTML = '';
+      data.forEach((req) => {
+        const card = document.createElement('div');
+        card.className = 'request-card';
+        
+        card.innerHTML = `
+          <p><strong>Category:</strong> ${capitalize(req.category)}</p>
+          <p><strong>Quantity:</strong> ${req.quantity}</p>
+          <p><strong>Description:</strong> ${req.description}</p>
+          <p id="status-${req.status}""><strong>Status:</strong> ${req.status}</p>
+          ${req.status === 'Accepted' ? 
+            `<button class="btn" onclick="markDroppedOff('${req.id}')">Item Dropped Off</button>` : ''}
+        `;
+
+        //pranav-tried this but page goes blank
+    /**    const statusElement = card.innerHTML.querySelector('.status-text');
+    if(req.status.toLowerCase() === 'rejected') {
+        statusElement.style.color = "red";
+    } else if(req.status.toLowerCase() === 'approved' || req.status.toLowerCase() === 'accepted') {
+        statusElement.style.color = "green";
+    } else if(req.status.toLowerCase() === "pending") {
+        statusElement.style.color = "grey";
+    }**/
+
+        requestsContainer.appendChild(card);
+      });
+    }
+
+    window.markDroppedOff = async function (id) {
+      const { error } = await supabase
+        .from('requests')
+        .update({ status: 'dropped off' })
+        .eq('id', id);
+
+      if (error) {
+        alert('Failed to update status');
+        return;
+      }
+
+      alert('Status updated to "dropped off"');
+      fetchRequests(); // Reload the list
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    fetchRequests();
+  </script>
+</body>
+</html>

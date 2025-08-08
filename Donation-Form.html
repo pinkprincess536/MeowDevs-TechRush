@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    button {
+      background-color:  #8F00FF;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    button:hover:not(:disabled) {
+      background-color:#9400D3;
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-message {
+      color: #10b981;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Submit Request</h2>
+    <div id="success-message" class="success-message"></div>
+    <form id="requestForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" readonly />
+      <div id="username-error" class="error-message">Username is required</div>
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Clothes">Clothes</option>
+        
+        <option value="Books">Books</option>
+        <option value="Uniform">Uniform</option>
+        <option value="Footwear">Footwear</option>
+        <option value="Winter">Winter Jackets and Blankets</option>
+      </select>
+      <div id="category-error" class="error-message">Please select a category</div>
+      
+      <!-- this is a new field -->
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" max="99">
+      <div id="quantity-error" class="error-message">Please select a Quantity</div>
+
+
+      <!-- this is a new field -->
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" required >
+      <div id="description-error" class="error-message">Please enter a Description</div>
+
+
+
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image" accept="image/*" required />
+      <div id="image-error" class="error-message">Please choose an image</div>
+
+
+      
+
+      <button type="submit" id="submit-btn">Submit Request</button>
+    </form>
+  </div>
+
+  <script type="module">
+    
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+   
+    const SUPABASE_URL = 'https://owffebbhgkktxfcxcfdq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93ZmZlYmJoZ2trdHhmY3hjZmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MjgwMTcsImV4cCI6MjA2OTMwNDAxN30.7Q20V6cP_iFM7ojsD1xoKWqgj1VUe1syITi9gjxQpbw';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    
+    function showError(elementId, message) 
+    {
+      const errorElement = document.getElementById(elementId);
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+    }
+
+    function hideError(elementId) {
+      const errorElement = document.getElementById(elementId);
+      errorElement.style.display = 'none';
+    }
+
+    function showSuccess(message) {
+      const successElement = document.getElementById('success-message');
+      successElement.textContent = message;
+      successElement.style.display = 'block';
+      setTimeout(() => {
+        successElement.style.display = 'none';
+      }, 5000);
+    }
+
+    function validateForm(username, category, imageFile) {
+      let isValid = true;
+
+      // Hide all errors first
+      hideError('username-error');
+      hideError('category-error');
+      hideError('quantity-error');
+      hideError('description-error')
+      hideError('image-error');
+
+      // Validate username
+      if (!username || username.trim() === '') 
+      {
+        showError('username-error', 'Username is required');
+        isValid = false;
+      }
+
+      // Validate category
+      if (!category) 
+      {
+        showError('category-error', 'Please select a category');
+        isValid = false;
+      }
+      //validate quantity
+      if(!quantity)
+      {
+        showError('quantity-error','Please specify quantity');
+        isValid= false;
+      }
+
+
+      if(!description)
+      {
+        showError('description-error','Please specify description');
+        isValid= false;
+      }
+      // Validate image
+     /** if (!imageFile) 
+      {
+        showError('image-error', 'Please choose an image');
+        isValid = false;
+      } else {
+        // Check file size (5MB limit)
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (imageFile.size > maxSize) 
+        {
+          showError('image-error', 'Image must be smaller than 5MB');
+          isValid = false;
+        }
+
+        // Check file type
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(imageFile.type)) {
+          showError('image-error', 'Please upload a valid image file (JPEG, PNG, GIF, WebP)');
+          isValid = false;
+        }
+      }**/
+
+      return isValid;
+    }
+
+    // Main form 
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('requestForm');
+        const submitBtn = document.getElementById('submit-btn');
+
+
+        //below code fetches user email from the local storage stored at the time of the login
+        const userEmail=localStorage.getItem('email');
+        if(userEmail)
+        {
+        const usernameField=document.getElementById('username');
+        usernameField.value=userEmail;
+
+        usernameField.style.backgroundColor = '#f5f5f5';
+        usernameField.style.cursor = 'not-allowed';
+        }
+        else
+        {
+          console.log("No email found in local storage");
+        }
+        
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // im not fetching the user name as it is prefilled
+        //const username = document.getElementById('username').value.trim();
+        const category = document.getElementById('category').value;
+        const quantity =document.getElementById('quantity').value;
+        const imageFile = document.getElementById('image').files[0];
+        const description=document.getElementById('description').value;
+
+        // Validate form
+        if (!validateForm (category, imageFile,quantity,description)) {
+          return;
+        }
+
+        // Show loading state
+        const originalButtonText = submitBtn.textContent;
+        submitBtn.textContent = 'Uploading...';
+        submitBtn.disabled = true;
+
+        try {
+          console.log('Starting upload process...');
+          console.log('Form data:', { description, category,quantity, fileName: imageFile.name });
+
+          // Create unique file path
+          const fileExt = imageFile.name.split('.').pop().toLowerCase();
+          const timestamp = Date.now();
+          const filePath = `uploads/${userEmail}_${timestamp}.${fileExt}`;
+
+          console.log('Uploading to path:', filePath);
+
+          // Upload image to Supabase Storage
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('item-images')
+            .upload(filePath, imageFile, {
+              cacheControl: '3600',
+              upsert: false
+            });
+
+          if (uploadError) {
+            console.error('Upload error:', uploadError);
+            throw new Error(`Image upload failed: ${uploadError.message}`);
+          }
+
+          console.log('Upload successful:', uploadData);
+
+          // Get the public URL for the uploaded image
+          const { data: publicUrlData } = supabase.storage
+            .from('item-images')
+            .getPublicUrl(filePath);
+
+          const imageUrl = publicUrlData.publicUrl;
+          console.log('Public URL:', imageUrl);
+
+          // supabase oploading
+          const insertData = {
+            username: userEmail,
+            category: category,
+            quantity:quantity,
+            image_url: imageUrl,
+            description:description
+          };
+
+          console.log('Inserting data:', insertData);
+
+          // Insert data into the requests table
+          const { data: insertResult, error: insertError } = await supabase
+            .from('requests')
+            
+            .insert([insertData])
+            .select(); // Get the inserted data back
+
+          if (insertError) {
+            console.error('Database insert error:', insertError);
+            
+            // If database insert fails, clean up the uploaded image
+            await supabase.storage
+              .from('item-images')
+              .remove([filePath]);
+            
+            throw new Error(`Failed to save request: ${insertError.message}`);
+          }
+
+          console.log('Database insert successful:', insertResult);
+
+          // Show success message
+          showSuccess('Request submitted successfully!');
+
+          /////////////////////////////////// Reset the form  ////////////////////////////////////////////////////
+          //form.reset();
+          //pranav-reset the form without touching the username..
+          document.getElementById('category').value = '';
+          document.getElementById('quantity').value = '';
+          document.getElementById('image').value = '';
+          document.getElementById('description').value = '';
+          
+
+//////////////////////////////////////////////////////////////////////////////////
+        } catch (error) {
+          console.error('Error during submission:', error);
+          alert(`Error: ${error.message}`);
+        } finally {
+          // Reset button state
+          submitBtn.textContent = originalButtonText;
+          submitBtn.disabled = false;
+        }
+      });
+
+      // Real-time validation
+      /**document.getElementById('username').addEventListener('input', () => {
+        hideError('username-error');
+      });**/
+
+      document.getElementById('category').addEventListener('change', () => {
+        hideError('category-error');
+      });
+
+      document.getElementById('description').addEventListener('change', () => {
+        hideError('description-error');
+      });
+
+      document.getElementById('quantity').addEventListener('change', () => {
+        hideError('quantity-error');
+      });
+
+      document.getElementById('image').addEventListener('change', () => {
+        hideError('image-error');
+      });
+    });
+  </script>
+</body>
+</html>
