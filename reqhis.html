@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Request History</title>
+
+  <link rel="stylesheet" href="outsreq.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  
+  <script src="reqhis.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h2>Requests History</h2>
+      <div id="count"></div>
+    </div>
+
+    <div id="request-list"></div>
+<div id="requestInfoBox" class="info-box">
+  <h2 id="infoTitle"></h2>
+  <p id="infoSubtitle"></p>
+
+  <p><strong>Username:</strong> <span id="username"></span></p>
+  <p><strong>Category:</strong> <span id="category"></span></p>
+  <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+  <div id="urlContainer"></div>
+  <div id="errorMessage" style="color: red;"></div>
+  
+  <button class="notify-ngo-btn" onclick="showNgoModal()">Notify NGO</button>
+  
+  <button class ="closebtn" onclick="hideRequestInfo()">Close</button>
+</div>
+
+
+<div id="ngoModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeNgoModal()">&times;</span>
+    <h2>Select NGO to Notify</h2>
+    <div id="ngoList"></div>
+  </div>
+</div>
+
+   
+  </div>
+</body>
+</html>

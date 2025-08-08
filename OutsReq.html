@@ -1,0 +1,50 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outstanding Requests</title>
+  <link rel="stylesheet" href="outsreq.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>🚨 Outstanding Requests</h2>
+      <p id="count">0 Requests waiting for attention</p>
+   
+    </div>
+    
+    <div id="request-list"></div>
+  </div>
+
+
+  
+
+<div id="requestInfoBox" class="info-box">
+  <h2 id="infoTitle"></h2>
+  <p id="infoSubtitle"></p>
+
+  <p><strong>Username:</strong> <span id="username"></span></p>
+  <p><strong>Category:</strong> <span id="category"></span></p>
+  <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+  <div id="urlContainer"></div>
+  <div id="errorMessage" style="color: red;"></div>
+
+  <div class="buttons">
+  <button onclick="updateRequestStatus('Accepted')" class="accept-btn">Accept</button>
+  <button onclick="updateRequestStatus('Rejected')" class="reject-btn">Reject</button>
+  <input type="hidden" id="currentRequestId" value=""></input>
+</div>
+
+</div>
+
+  <script src="outsreq.js"></script>
+</body>
+</html>
+
+
+

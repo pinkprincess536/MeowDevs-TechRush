@@ -1,0 +1,237 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #667eea;
+  margin: 0;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+ border-color: #C63A3B;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color:white;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.view-all {
+  align-self: flex-end;
+  margin-top: 10px;
+  background-color: #f3f4f6;
+  border-style: solid;
+  border: 1px #ddd;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#request-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.request-item {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e3e3e3;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.request-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.request-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+
+.ViewDetails {
+  background-color: #C63A3B;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-bottom: 30px;
+  margin-left:130px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#requestInfoBox {
+  border: 2px solid #C63A3B;
+  display:none;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  background-color: #fff8f8;
+  box-shadow: 0 4px 12px rgba(198, 58, 59, 0.2);
+  width: 90%;
+  max-width: 400px;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+#requestInfoBox.show {
+  display: block;
+}
+
+#urlContainer {
+  margin-top: 15px;
+}
+
+.url-link {
+  color: #C63A3B;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.url-link:hover {
+  text-decoration: underline;
+}
+
+
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn, .reject-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.accept-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.reject-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+.closebtn{
+  
+  background-color: #dc3545;
+  color: white;
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+
+.notify-ngo-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.notify-ngo-btn:hover {
+  background-color: #218838;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 2px solid #C63A3B;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #C63A3B;
+}
+
+#ngoList {
+  margin-top: 20px;
+}
+
+.ngo-item {
+  padding: 15px;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ngo-item:hover {
+  background-color: #f8f9fa;
+  border-color: #C63A3B;
+}
+
+.ngo-item.selected {
+  background-color: #C63A3B;
+  color: white;
+}
+
+.ngo-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ngo-address {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+}
